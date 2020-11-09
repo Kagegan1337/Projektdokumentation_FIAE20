@@ -94,6 +94,7 @@ Projektdokumenatation:
                 - 
 
     Soll-Analyse
+
         Kassensoftware:
             Anlegen eines neuen Tokens:
                 Der neu Token wird weiterhin in eine property datei mit einer exemplarischen Übersetzung eingetragen. 
@@ -107,7 +108,8 @@ Projektdokumenatation:
                 Das zusätzliche Programm wandelt das eingehende JSON in eine property datei um.
 
             Die Synchronisation der Tokens wird durch den Transaltionservice abgesichert.
-
+            Anpassen des GitLab Repositories. Werden neue Commits auf den Master geschrieben und es gibt Änderungen an den Übersetzungsdateien, werden die property Dateien an die neue Schnittstelle des
+            Translationservice geschickt. 
             
         TransaltionService
             - Funktionale Änderungen
@@ -123,6 +125,7 @@ Projektdokumenatation:
                     Der Freigebeprozess beinhaltet ein Dokumentationsfeld.
                     Änderung werden über den Speichernbutton erkannt. If(version.persited()) -> createNewVersion() else nothing
 
+                    Neue Tokens werden in die aktuell nicht freigegebene Version übernommen.
                     Nach Freigabe -> neues Unterverzeichnis mit versionsnamen und einem Dump der Property dateien.
                     In einem Unterverzeichnis (TranslationFilesCashDesk) liegen Versionsverzeichnise. Die Versionsverzeichnisse werden nach ihrer Version benannt. In den Verzeichnissen liegen die 
                     Property Datein für die Kassensoftware
@@ -151,7 +154,8 @@ Projektdokumenatation:
               ein Klasse die die frei gewählten Akronyme auf eine reale Sprache abbildet.
             - 
             
-            
+    Kosten-Nutzen-Analyse
+    
 
 
 

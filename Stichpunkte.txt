@@ -1,4 +1,9 @@
 Projektdokumenatation:
+    Vorab (Mdl Prüfung):
+        Der Übersetzungsdienst war das erste Projekt mit dem ich bei ehemals White-Paper-Media betraut wurde. Es ist von mir unter Aufsicht einers Seniors geplant und programiert worden.
+        Das Projekt diente dazu, mich in einer für mich fremden Programiersprache einzuarbeiten. Anhand dieses Projektes kann ich ebenfalls meine Weiterentwicklung während meiner Aubsildung 
+        erkennen.
+
     IST-Analyse (Aktueller Zustand)
         Kassensoftware:
             Struktur
@@ -6,6 +11,8 @@ Projektdokumenatation:
                 - Textstellen werden im code mit Platzhaltern (Übersetzungstokens) abgebildet.
                 - die zu verwendene Sprache ist über einen Parameter in den Konfigurationen einstellbar.
                 - Tokens mit Übersetzung liegen in einer property-Datei.
+                - Zur Identifizierung der Sprache einer Datei ist der Dabeiname wie folgt aufgebaut: translation<key>.property.
+                - Anhand der Keys kann über ein Enum auf die korrekte Sprache geschlossen werden.
                 - Zur Laufzeit wird die Datei ausgelesen.
                 - Das Frontend zeigt die Übersetzung für den Token an.
                 - Synchronisation der Übersetzungsdateien geschieht händisch.
@@ -24,7 +31,7 @@ Projektdokumenatation:
 
             Kommunikation:
                 - Neu erstellte Tokens werden nach der Fertigstellung einer Aufgabe in die Dokumentation der Aufgabenstellung aufgenommen. Dem Übersetzer muss dies mitgeteilt werden 
-                dieser kann dann den neuen Token in seiner Sprache übersetzten.
+                  dieser kann dann den neuen Token in seiner Sprache übersetzten.
             
             Daten:
                 - Übersetzungen werden direkt in der Datei gemacht.
@@ -41,6 +48,8 @@ Projektdokumenatation:
                 - Keine Übersicht des Übersetzungsfortschritts in den jeweiligen Sprachen.
                 - Updates der Übersetzungen werden nur über Updates in das Kassensystem eingespielt werden.
                 - Codestelle an denen der Token verwendet wird, ist nicht vorhanden.
+                - Der in dem Namen verwendeten Key für die Sprache entspricht nicht der ISO-639-1 daher ist es schwer von frei gewählten Akronymen auf die reale Sprache zu schließen.
+
                 
         TransaltionService:
             Struktur
@@ -51,7 +60,7 @@ Projektdokumenatation:
                 - Buttons zum Bearbeiten der Übersetzungen einer Sprache
                 - Menu zum Anzeigen aller Sprachen
                     - Suche nach Tokens
-                - Bearbeitungsmenu einer Sprache(Menu im Dashboard oder Translations-> Sprache):
+                - Bearbeitungsmenu einer Sprache(Menu im Dashboard oder Translations -> Sprache):
                     - Filter zum Anzeigen aller nicht übersetzten Tokens
                     - Bearbeitung muss manuell abgespeichert werden
                     - Suche nach Tokens
@@ -61,7 +70,8 @@ Projektdokumenatation:
                     - Änderungen müssen manuell gespeichert werden
                     - Löschen eines Tokens
                 - MySql Datenbank gestüztes System
-                - Neue Tokens werden per JSON an das System übergeben
+                - Neue Tokens werden per JSON an das System übergeben und einem neuen Import zugewiesen.
+                - Jeder Import beinhaltet alle Tokens die über die Schnittstelle an den Translationservice gesendet wurde.
                 - Eine Übersetzung pro Token (keine Version)
                 - Verweis auf die Benutzung des Tokens im eigentlichen Quellcode.
                 <use-case></use-case>
@@ -81,7 +91,8 @@ Projektdokumenatation:
                 - Keine Möglichkeit der Versionierung
                 - Keine Schnittstelle zum Einlesen von Property Datein.
                 - Es gibt keine Version für die Tokens, dadruch gibt es keinen Rückschluss auf die Übersetzung in alten Versionen eines Systems.
-            
+                - 
+
     Soll-Analyse
         Kassensoftware:
             Anlegen eines neuen Tokens:
@@ -94,10 +105,18 @@ Projektdokumenatation:
                 Überprüfung bei jedem Kassenstart.
                 Das zusätzliche Programm wandelt das eingehende JSON in eine property datei um.
             Die Synchronisation der Tokens wird durch den Transaltionservice abgesichert.
+             
 
         TransaltionService
-            Zum manuellen download der Übersetzungen 
-
+            - Bietet in der Oberfläche einen neuen Button zum Downloaden von Translation files als properties
+            - Neue Schnittsellen:
+                - Annahme von property Dateien
+                - 
+            - Neue Schnittstelle welche property Dateien annimmt, verarbeitet und die gelesenen Tokens in einer Datenbank speichert.
+            - Neue Schnittstelle 
+            - Um die Integrität des Kassencodes zu gewährleisten werden die Dateinamen der Übersetzungsdatei nicht angepasst. Deswegen bekommt der Übersetzungsdienst eine
+              ein Klasse die die frei gewählten Akronyme auf eine reale Sprache abbildet.
+            - 
             
             
 
@@ -163,3 +182,9 @@ Versionsbau:
              
 
     PK Übersetzung wird geändert in TokenId(PK FK) + Version(PK FK) -> Übersetzung.
+
+    Vgl. zum Projektantrag:
+        - Neue Schnittstelle zum Annehmen von Property Dateien.
+        - 
+    Fragen an Martens:
+        Worfür wurde die Entity Import angelegt? (Noch notwendig)

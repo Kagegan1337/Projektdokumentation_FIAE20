@@ -94,20 +94,56 @@ Projektdokumenatation:
                 - 
 
     Soll-Analyse
+
         Kassensoftware:
             Anlegen eines neuen Tokens:
                 Der neu Token wird weiterhin in eine property datei mit einer exemplarischen Übersetzung eingetragen. 
                 Mit dem Merge in den Master Branch werden über einen Webhook die "neuen" Tokens an den Übersetzungsdienst geleitet.
             Holen neuer Übersetzungen:
-                Über einen zusätzlichen Prozess im batch script wird eine Anfrage mit der aktuell verwendeten version der übersetzugnen an den 
-                Translationservice gesendet.
+                Da die Übersetzungsdateien vor dem Start der Java application im classpath liegen müssen, muss ein unabhängiges Programm die 
+                die aktuellste Version der Übersetungsdateien vom TranslationService anfragen. Das unabhängige Programm ist in Java programmiert. Per 
+                Request wird an eine neue Schnittstelle wird eine neue Schnittstelle angesprochen und ggf. die Übersetzungsdatei im classpath überschrieben. 
                 Wenn neue Übersetzungen zur Verfüngung stehen, werden diese vom Übersetzungsdienst in der Antwort mitgesendet, ansonsten ohne Content
                 Überprüfung bei jedem Kassenstart.
                 Das zusätzliche Programm wandelt das eingehende JSON in eine property datei um.
-            Die Synchronisation der Tokens wird durch den Transaltionservice abgesichert.
-             
 
+            Die Synchronisation der Tokens wird durch den Transaltionservice abgesichert.
+            Anpassen des GitLab Repositories. Werden neue Commits auf den Master geschrieben und es gibt Änderungen an den Übersetzungsdateien, werden die property Dateien an die neue Schnittstelle des
+            Translationservice geschickt. 
+            
         TransaltionService
+            - Funktionale Änderungen
+                - Versionierung (!ÜBERARBEITUNGSFÄHIG!)
+                    Das größte Problem bei der Anpassung am Übersetzungsdienst ist die Implementierung der Versionierung. Als Lösung dient eine neues Untermenu, in dem 
+                    die Version als Major - Minor - Patch - Revision gespeichert werden kann. Zur Dokumentation der Änderungen gibt es ein Textfeld in dem eine Kommentar zur Version
+                    hinzugefügt werden kann.
+                    Übersetzungen werden über die Version auf einen Token abgebildet.
+                    
+                    Änderungen müssen über ein Menu freigegeben werden. Version ist damit freigegeben.
+                    Jede weitere Änderung führt dazu, das eine neue Version angelegt wird. Alle nachfolgenden Änderungen müssen dann wieder freigegeben werden.
+                    Eine neue Version kann nur abgerufen werden, wenn diese Freigegeben wird. 
+                    Der Freigebeprozess beinhaltet ein Dokumentationsfeld.
+                    Änderung werden über den Speichernbutton erkannt. If(version.persited()) -> createNewVersion() else nothing
+
+                    Neue Tokens werden in die aktuell nicht freigegebene Version übernommen.
+                    Nach Freigabe -> neues Unterverzeichnis mit versionsnamen und einem Dump der Property dateien.
+                    In einem Unterverzeichnis (TranslationFilesCashDesk) liegen Versionsverzeichnise. Die Versionsverzeichnisse werden nach ihrer Version benannt. In den Verzeichnissen liegen die 
+                    Property Datein für die Kassensoftware
+
+                    Eine Schnittstelle empfängt eine Versionsnummer. Ist die Versionsnummer älter als die aktuellste freigegebene Version wird der Inhalt des aktuellsten 
+                    Versionsverzeichnis als Response gesendet (Response code 200).
+                    Stimmt die Versionummer mit der aktuellsten überein, wird als Response 204 gesendet 
+
+                    Über eine Schnittstelle kann die aktuellse Version abgefragt werden.
+                    Über eine Schnittstelle können Versionen abgerufen werden.
+                    Über eine Schnittstelle kann ein Dump einer bestimmten Schnittstelle abgerufen werden.
+
+                    Erweiterung der Datenbank um die Entität Version. Anpassen der bestehenden Entitäten.
+
+                - Oberfläche 
+                    - Dropdown Menu zum Anzeigen der Tokens einer Version
+                    - Dashboard: Zeigt den Übersetzungsstand der Tokens in einer Version
+
             - Bietet in der Oberfläche einen neuen Button zum Downloaden von Translation files als properties
             - Neue Schnittsellen:
                 - Annahme von property Dateien
@@ -118,7 +154,8 @@ Projektdokumenatation:
               ein Klasse die die frei gewählten Akronyme auf eine reale Sprache abbildet.
             - 
             
-            
+    Kosten-Nutzen-Analyse
+    
 
 
 
@@ -147,6 +184,7 @@ To-Do's
     Entwurf: 
 
 Glossar:
+    classpath
     Tokens
     MySql Datenbank
     Deployment
@@ -154,12 +192,14 @@ Glossar:
     Multilingualität
     JSON
     Property
+    Request
     Dashboard
     Updates
     Buildservice
     Translationservice
     Branch
     Merge
+    Dump
 
 Versionsbau:
     Der Abteilungsleiter der Übersetzung hat die Möglichkeit eine neue Version der Übersetzungen zu bauen. (Neues Versionsverzeichnis welches die Übersetzungsdateien beinhaltet)
@@ -186,5 +226,9 @@ Versionsbau:
     Vgl. zum Projektantrag:
         - Neue Schnittstelle zum Annehmen von Property Dateien.
         - 
+    
+    Schwierigkeiten:
+        - Integrieren der Version
+        - IST / SOLL Analyse dauert länger als veranschlagt
     Fragen an Martens:
         Worfür wurde die Entity Import angelegt? (Noch notwendig)

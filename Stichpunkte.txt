@@ -1,0 +1,165 @@
+Projektdokumenatation:
+    IST-Analyse (Aktueller Zustand)
+        Kassensoftware:
+            Struktur
+                - Multilingualität
+                - Textstellen werden im code mit Platzhaltern (Übersetzungstokens) abgebildet.
+                - die zu verwendene Sprache ist über einen Parameter in den Konfigurationen einstellbar.
+                - Tokens mit Übersetzung liegen in einer property-Datei.
+                - Zur Laufzeit wird die Datei ausgelesen.
+                - Das Frontend zeigt die Übersetzung für den Token an.
+                - Synchronisation der Übersetzungsdateien geschieht händisch.
+                - Start der Kasse geschieht über ein batch script.
+            Aufgabeverteilung
+                Stakeholder:
+                    Entwickler
+                        - Bei Verwendung neuer Texte wird ein neuer Token mit einer exemplarischen Übersetzung in einer Übersetzungsdatei angelegt.
+                        - Bei Verwendung bereits übersetzter Texte, kann ein Token wiederverwendet werden. 
+                    Übersetzer
+                        - Übersetzt anhand der exemplarischen Übersetzung den Token für seine Sprache 
+                    Nutzer
+                        - Kann die Sprache über eine UI in der Kassensoftware einstellen.
+                        - Sieht die Übersetzung der Tokens im UI der Kassensoftware.
+                <use-Case> </use-case>
+
+            Kommunikation:
+                - Neu erstellte Tokens werden nach der Fertigstellung einer Aufgabe in die Dokumentation der Aufgabenstellung aufgenommen. Dem Übersetzer muss dies mitgeteilt werden 
+                dieser kann dann den neuen Token in seiner Sprache übersetzten.
+            
+            Daten:
+                - Übersetzungen werden direkt in der Datei gemacht.
+                - Übersetzungen weren aus der Datei in das Kassensystem geladen.
+                - Geänderte oder neue Übersetzung müssen über ein Versionsupdate an die Kasse geliefert werden.
+
+            Deployment:
+                - Versionen werden als Git Branch erstellt.
+                - Über den Buildservice Jenkins wird von einem Versionsbranch eine neue Version gebaut und als artifact auf dem Server hinterlegt.
+                - Abhängigkeiten liegen auf dem Buildserver
+            
+            Schwachstellen:
+                - Keine konkrete Synchronisation zwischen den verschiedenen Übersetzungsdatein.
+                - Keine Übersicht des Übersetzungsfortschritts in den jeweiligen Sprachen.
+                - Updates der Übersetzungen werden nur über Updates in das Kassensystem eingespielt werden.
+                - Codestelle an denen der Token verwendet wird, ist nicht vorhanden.
+                
+        TransaltionService:
+            Struktur
+                - Autorisierung der am Service ist mit Username und passwort geschützt
+                - Dashboard:    
+                    Übersicht aller Sprachen mit dem Übersetzungsfortschritt aller token in %
+                    Anlegen neuer Sprachen über + (nötige Parameter: language Key und Language name)
+                - Buttons zum Bearbeiten der Übersetzungen einer Sprache
+                - Menu zum Anzeigen aller Sprachen
+                    - Suche nach Tokens
+                - Bearbeitungsmenu einer Sprache(Menu im Dashboard oder Translations-> Sprache):
+                    - Filter zum Anzeigen aller nicht übersetzten Tokens
+                    - Bearbeitung muss manuell abgespeichert werden
+                    - Suche nach Tokens
+                - Bearbeitungsmenu eines Tokens (Erreichbar durch anklicken oder Suche des Tokens)
+                    - Zeigt die Übersetzungen eines Tokens in allen Sprachen an
+                    - Zeigt leere Felder Sprachen ohne Übersetzung
+                    - Änderungen müssen manuell gespeichert werden
+                    - Löschen eines Tokens
+                - MySql Datenbank gestüztes System
+                - Neue Tokens werden per JSON an das System übergeben
+                - Eine Übersetzung pro Token (keine Version)
+                - Verweis auf die Benutzung des Tokens im eigentlichen Quellcode.
+                <use-case></use-case>
+            Kommunikation:
+                - Das Dashboard zeigt an, dass es noch Tokens in einer Sprache gibt die noch nicht übersetzt wurden.
+                - Zugriff auf Daten geschieht über Schnittstelle
+            Daten:
+                Daten liegen auf einer MySql Datenbank.
+                <erd></erd>
+            
+            Deployment:
+                Über eine Schnittstelle können die Tokens als json aus dem System geladen werden.
+                <swagger></swagger>
+
+            Schwachstellen:
+                - Keine Möglichkeit über die Oberfläche eine Datei mit Tokens und Übersetzungen zu erstellen und zu laden.
+                - Keine Möglichkeit der Versionierung
+                - Keine Schnittstelle zum Einlesen von Property Datein.
+                - Es gibt keine Version für die Tokens, dadruch gibt es keinen Rückschluss auf die Übersetzung in alten Versionen eines Systems.
+            
+    Soll-Analyse
+        Kassensoftware:
+            Anlegen eines neuen Tokens:
+                Der neu Token wird weiterhin in eine property datei mit einer exemplarischen Übersetzung eingetragen. 
+                Mit dem Merge in den Master Branch werden über einen Webhook die "neuen" Tokens an den Übersetzungsdienst geleitet.
+            Holen neuer Übersetzungen:
+                Über einen zusätzlichen Prozess im batch script wird eine Anfrage mit der aktuell verwendeten version der übersetzugnen an den 
+                Translationservice gesendet.
+                Wenn neue Übersetzungen zur Verfüngung stehen, werden diese vom Übersetzungsdienst in der Antwort mitgesendet, ansonsten ohne Content
+                Überprüfung bei jedem Kassenstart.
+                Das zusätzliche Programm wandelt das eingehende JSON in eine property datei um.
+            Die Synchronisation der Tokens wird durch den Transaltionservice abgesichert.
+
+        TransaltionService
+            Zum manuellen download der Übersetzungen 
+
+            
+            
+
+
+
+
+Ist-Analyse:
+
+Stuktur
+Aufgaben
+Kommunikation
+Daten
+Dokumente 
+Schwachstellen
+
+To-Do's
+    Ist-Analyse
+        Beschreibung der aktuellen Systeme
+        UseCase Diagramme
+        Erd Diagramme
+        Swagger
+    Soll-Analyse
+        
+    Kosten-Nutzen-Analyse
+    Lastenheft
+
+    Entwurf: Erweiterung der Datenbank
+    Entwurf: 
+
+Glossar:
+    Tokens
+    MySql Datenbank
+    Deployment
+    Interface
+    Multilingualität
+    JSON
+    Property
+    Dashboard
+    Updates
+    Buildservice
+    Translationservice
+    Branch
+    Merge
+
+Versionsbau:
+    Der Abteilungsleiter der Übersetzung hat die Möglichkeit eine neue Version der Übersetzungen zu bauen. (Neues Versionsverzeichnis welches die Übersetzungsdateien beinhaltet)
+    Tokens bekommen ein neus Feld mit Version (Neue Entität). 
+    Das Programm welches für die Kommnunikation mit dem Übersetzungsdienst eingerichtet wurde, schickt seine verwendete Version an den Dienst und bekommt entweder einen 
+    204 (Akzeptiert ohne Änderung) wenn die aktuelle version mit der Version im Übersetzungsdienst übereinstimmt.
+    200 (Anfrage erfolgreich) bekommt die Übersetzungsdateien als JSON zurück.
+    Anpassen der Entitäten:
+    Neue Entität:
+        Version: 
+            VersionId : Integer (PK)
+            Major : Integer
+            Minor : Integer
+            Patch : Integer
+            Reveision : Integer
+            Kommentar : String
+            ErstellDatum : Date
+
+        Translation:
+             
+
+    PK Übersetzung wird geändert in TokenId(PK FK) + Version(PK FK) -> Übersetzung.

@@ -101,8 +101,12 @@ Projektdokumenatation:
                 Mit dem Merge in den Master Branch werden über einen Webhook die "neuen" Tokens an den Übersetzungsdienst geleitet.
             Holen neuer Übersetzungen:
                 Da die Übersetzungsdateien vor dem Start der Java application im classpath liegen müssen, muss ein unabhängiges Programm die 
-                die aktuellste Version der Übersetungsdateien vom TranslationService anfragen. Das unabhängige Programm ist in Java programmiert. Per 
-                Request wird an eine neue Schnittstelle wird eine neue Schnittstelle angesprochen und ggf. die Übersetzungsdatei im classpath überschrieben. 
+                die aktuellste Version der Übersetungsdateien vom TranslationService anfragen. Das unabhängige Programm ist in Java programmiert. 
+                Dabei übernimmt die Anwendung zwei Áufgaben.
+                    1. Anfragen der aktuellsten Version die im Übersetzungsdienst hinterlegt ist.
+                    2. Wenn es neue Übersetzungen gegeben hat, werden die neuen Datein in den classpath der Anwendung gelegt.
+                GGf. kann die Anwendung zu einem späteren Zeitpunkt als Modul in die Kassensoftware integriert werden. 
+                Im Rahmen des Projektes soll die Integrität des Quellcodes der Kassensoftware gerwährleistet werden. 
                 Wenn neue Übersetzungen zur Verfüngung stehen, werden diese vom Übersetzungsdienst in der Antwort mitgesendet, ansonsten ohne Content
                 Überprüfung bei jedem Kassenstart.
                 Das zusätzliche Programm wandelt das eingehende JSON in eine property datei um.
@@ -156,6 +160,19 @@ Projektdokumenatation:
             
     Kosten-Nutzen-Analyse
     
+    Lastenheft:
+        - Aus den Stichpunkten der IST-Analyse und den Vorgaben 
+    
+    Entwürfe:
+        Erweiterung des Datenbankmodells
+            - Neues ERD und Diff zum Alten
+        Erweiterung der neue Schnittstellen
+            - REST Schnittstellenbeschreibung über Swagger
+        Entwurf des Java Clients
+            - Klassendiagramm
+            - Testcases
+
+    Pflichtenheft
 
 
 

@@ -7,32 +7,58 @@
 %Define Codeblockfont
 %Define sourcedirectory
 
+\renewcommand{\contentsname}{Inhaltsverzeichnis}
 \begin{document}
 %Deckblatt einfügen
+    \pagenumbering{roman}
     \tableofcontents
-    \section{Analysen}
-    \subsection{?Lastenheft}
-    \subsection{?Pflichtenheft}
-    \subsection{?Soll-Analyse}
-    \subsection{?IST-Analyse}
-    \subsection{?Kosten-Nutzen-Analyse}
-    \section{Entwurf}
+    \newpage
+    \section{Abbildungsverzeichnis}
+    \newpage
+    \section{Tabellenverzeichnis}
+    \newpage
+    \section{Verzeichnis der Listings}
+    \newpage
+    \section{Glossar}
+    \newpage
+    \pagenumbering{arabic}
+    \section{Einleitung}
+    \subsection{Projektbeschreibung}
+    \subsection{Projektziel}
+    \subsection{Projektumfeld}
+    \section{Projektplanung}
+    \section{Projektphasen}
+    \section{Vorgehensmodel}
+    \section{Genutzte Resourcen}
+    \section{Analysephase}
+    \subsection{Ist-Analyse}
+    \subsection{Soll-Analyse}
+    \subsection{Wirtschaftsanalyse}
+    \subsubsection{Kostenaufstellung}
+    \subsubsection{Aromatisierungsdauer}
+    \subsection{Anwendungsfälle}
+    \subsection{Lastenheft}
+    \section{Entwurfsphase}
+    \subsection{Userinterface}
+    \subsection{Datenmodell}
+    \subsection{APIs}
+    \subsection{Geschäftslogik}
+    \subsection{Testcases}
+    \subsection{Pflichtenheft}
+    \section{Implementierungsphase}
     \subsection{Translationservice}
-    \subsubsection{Motivation}
-    \subsubsection{Schnittstellen}
-    \subsubsection{Datenbankerweiterung}
-    \subsection{TranslationLoader}
-    \subsubsection{Motivation}
-    \subsubsection{Aufbau}
-    \section{Implementierung}
-    \subsection{Translationserive}
+    \subsubsection{Erweiterung der bestehenen Datengrundlage}
+    \subsubsection{Implemetierung der REST Api}
     \subsection{Translationloader}
-    \section{Testergebnisse}
-    \subsection{Translationserive}
-    \subsection{Translationloader}
-    \section{Abschluss}
-    \subsection{Glossar}
-    \subsection{Anhang}
-    \subsection{Literatur}
-    \subsection{Quellen}
+    \subsubsection{Geschäftslogik}
+    \subsubsection{Userinterface}
+    \subsubsection{Batch Script Extension}
+    \subsubsection{Webhook}
+    \section{Abnahme- und Einführungsphase}
+    \subsection{Abnahme durch den Fachbereich}
+    \subsection{Deployment}
+    \section{Dokumentation}
+    \section{Retroanalyse}
+    \subsection{IST-SOLL-Vergleich}
+    \subsection{Ausblick}
 \end{document}

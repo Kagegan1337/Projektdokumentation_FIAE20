@@ -1,4 +1,5 @@
-\documentclass[12pt,oneside]{article}
+\documentclass[oneside]{article}
+
 
 \author{Philipp Jetzlaff}
 \title{Projektdokumentation}
@@ -6,7 +7,21 @@
 %packages
 \usepackage{fancyhdr}
 \usepackage{graphicx}
-\usepackage[a4paper, top=20mm,bottom = 20mm]{geometry}
+\usepackage[a4paper, headheight=55pt, bottom=20mm]{geometry}
+%Define Header
+\fancyhf{}
+\fancyhead[R]{\includegraphics[width=0.11\textwidth]{OktoPOS.png}}
+\fancyhead[L]{
+  \uppercase{Erweiterung eines Onlineserivce}\\
+  \vspace{1pt}
+  \small{Anbindung der OktoPOS Software an den internen Übersetzungsdienst}\\ 
+  \vspace{4pt}
+  \scriptsize{\leftmark}
+}
+\fancyfoot[L]{Philipp Jetzlaff}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
 
 %Define Codeblockfont
 %Define imagepath
@@ -16,12 +31,12 @@
 \begin{document}
 %Define Header and footer
   \pagestyle{fancy}
-  \fancyhead[LO]{Title}
-  \fancyhead[RO]{\includegraphics[width=0.1\textwidth]{OktoPOS.png}}
-%Deckblatt einfügen
-  \pagenumbering{roman}
+  
+  %Deckblatt einfügen
+  %table of contents
   \tableofcontents
-  \newpage
+  \clearpage
+  \pagenumbering{roman}
   \section{Abbildungsverzeichnis}
   \newpage
   \section{Tabellenverzeichnis}
@@ -41,8 +56,19 @@
   \subsection{Genutzte Resourcen}
   \section{Analysephase}
   \subsection{Ist-Analyse}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{ERD_TranslationService_IST-Analyse.png}
+    \caption{ERD im IST Zustand}
+  \end{figure}
+  \newpage
   \subsection{Soll-Analyse}
-  \subsection{Wirtschaftsanalyse}
+  asd
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{ERD_TranslationService_SOLL-Analyse.png}
+    \caption{ERD im SOLL Zustand}
+  \end{figure}  \subsection{Wirtschaftsanalyse}
   \subsubsection{Kostenaufstellung}
   \subsubsection{Aromatisierungsdauer}
   \subsection{Anwendungsfälle}

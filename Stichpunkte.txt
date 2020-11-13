@@ -5,93 +5,6 @@ Projektdokumenatation:
         erkennen.
 
     IST-Analyse (Aktueller Zustand)
-        Kassensoftware:
-            Struktur
-                - Multilingualität
-                - Textstellen werden im code mit Platzhaltern (Übersetzungstokens) abgebildet.
-                - die zu verwendene Sprache ist über einen Parameter in den Konfigurationen einstellbar.
-                - Tokens mit Übersetzung liegen in einer property-Datei.
-                - Zur Identifizierung der Sprache einer Datei ist der Dabeiname wie folgt aufgebaut: translation<key>.property.
-                - Anhand der Keys kann über ein Enum auf die korrekte Sprache geschlossen werden.
-                - Zur Laufzeit wird die Datei ausgelesen.
-                - Das Frontend zeigt die Übersetzung für den Token an.
-                - Synchronisation der Übersetzungsdateien geschieht händisch.
-                - Start der Kasse geschieht über ein batch script.
-            Aufgabeverteilung
-                Stakeholder:
-                    Entwickler
-                        - Bei Verwendung neuer Texte wird ein neuer Token mit einer exemplarischen Übersetzung in einer Übersetzungsdatei angelegt.
-                        - Bei Verwendung bereits übersetzter Texte, kann ein Token wiederverwendet werden. 
-                    Übersetzer
-                        - Übersetzt anhand der exemplarischen Übersetzung den Token für seine Sprache 
-                    Nutzer
-                        - Kann die Sprache über eine UI in der Kassensoftware einstellen.
-                        - Sieht die Übersetzung der Tokens im UI der Kassensoftware.
-                <use-Case> </use-case>
-
-            Kommunikation:
-                - Neu erstellte Tokens werden nach der Fertigstellung einer Aufgabe in die Dokumentation der Aufgabenstellung aufgenommen. Dem Übersetzer muss dies mitgeteilt werden 
-                  dieser kann dann den neuen Token in seiner Sprache übersetzten.
-            
-            Daten:
-                - Übersetzungen werden direkt in der Datei gemacht.
-                - Übersetzungen weren aus der Datei in das Kassensystem geladen.
-                - Geänderte oder neue Übersetzung müssen über ein Versionsupdate an die Kasse geliefert werden.
-
-            Deployment:
-                - Versionen werden als Git Branch erstellt.
-                - Über den Buildservice Jenkins wird von einem Versionsbranch eine neue Version gebaut und als artifact auf dem Server hinterlegt.
-                - Abhängigkeiten liegen auf dem Buildserver
-            
-            Schwachstellen:
-                - Keine konkrete Synchronisation zwischen den verschiedenen Übersetzungsdatein.
-                - Keine Übersicht des Übersetzungsfortschritts in den jeweiligen Sprachen.
-                - Updates der Übersetzungen werden nur über Updates in das Kassensystem eingespielt werden.
-                - Codestelle an denen der Token verwendet wird, ist nicht vorhanden.
-                - Der in dem Namen verwendeten Key für die Sprache entspricht nicht der ISO-639-1 daher ist es schwer von frei gewählten Akronymen auf die reale Sprache zu schließen.
-
-                
-        TransaltionService:
-            Struktur
-                - Autorisierung der am Service ist mit Username und passwort geschützt
-                - Dashboard:    
-                    Übersicht aller Sprachen mit dem Übersetzungsfortschritt aller token in %
-                    Anlegen neuer Sprachen über + (nötige Parameter: language Key und Language name)
-                - Buttons zum Bearbeiten der Übersetzungen einer Sprache
-                - Menu zum Anzeigen aller Sprachen
-                    - Suche nach Tokens
-                - Bearbeitungsmenu einer Sprache(Menu im Dashboard oder Translations -> Sprache):
-                    - Filter zum Anzeigen aller nicht übersetzten Tokens
-                    - Bearbeitung muss manuell abgespeichert werden
-                    - Suche nach Tokens
-                - Bearbeitungsmenu eines Tokens (Erreichbar durch anklicken oder Suche des Tokens)
-                    - Zeigt die Übersetzungen eines Tokens in allen Sprachen an
-                    - Zeigt leere Felder Sprachen ohne Übersetzung
-                    - Änderungen müssen manuell gespeichert werden
-                    - Löschen eines Tokens
-                - MySql Datenbank gestüztes System
-                - Neue Tokens werden per JSON an das System übergeben und einem neuen Import zugewiesen.
-                - Jeder Import beinhaltet alle Tokens die über die Schnittstelle an den Translationservice gesendet wurde.
-                - Eine Übersetzung pro Token (keine Version)
-                - Verweis auf die Benutzung des Tokens im eigentlichen Quellcode.
-                <use-case></use-case>
-            Kommunikation:
-                - Das Dashboard zeigt an, dass es noch Tokens in einer Sprache gibt die noch nicht übersetzt wurden.
-                - Zugriff auf Daten geschieht über Schnittstelle
-            Daten:
-                Daten liegen auf einer MySql Datenbank.
-                <erd></erd>
-            
-            Deployment:
-                Über eine Schnittstelle können die Tokens als json aus dem System geladen werden.
-                <swagger></swagger>
-
-            Schwachstellen:
-                - Keine Möglichkeit über die Oberfläche eine Datei mit Tokens und Übersetzungen zu erstellen und zu laden.
-                - Keine Möglichkeit der Versionierung
-                - Keine Schnittstelle zum Einlesen von Property Datein.
-                - Es gibt keine Version für die Tokens, dadruch gibt es keinen Rückschluss auf die Übersetzung in alten Versionen eines Systems.
-                - 
 
     Soll-Analyse
 
@@ -173,12 +86,33 @@ Projektdokumenatation:
             - Testcases
 
     Pflichtenheft
+        - Auszug aus Projektplanung und Realisierung
 
+    
+
+        Zeitplanung
+        Grobe Zeitplanung:
+            Analysephase: 7h
+            Entwurfsphase: 11h
+            Implementierungsphase: 35h
+            Abhname 1h
+            Dokumentation 14h
+        Genau Zeitplanung
+            Analysephase
+                IST-Analyse
+                SOLL-Analyse
+                Kosten-Nutzen-Analyse
+                Erstellung des Lastenhefts
+            Entwurfsphase
+                Erweiterung des Datenbankmodells
+            Implementierungsphase
+            Abnahme
+            Dokumentation
 
 
 
 Ist-Analyse:
-
+EPK Übersetzung Kasse
 Stuktur
 Aufgaben
 Kommunikation
@@ -231,9 +165,9 @@ Versionsbau:
             Major : Integer
             Minor : Integer
             Patch : Integer
-            Reveision : Integer
             Kommentar : String
             ErstellDatum : Date
+            Freigegeben : boolean
 
         Translation:
              
@@ -241,8 +175,9 @@ Versionsbau:
     PK Übersetzung wird geändert in TokenId(PK FK) + Version(PK FK) -> Übersetzung.
 
     Vgl. zum Projektantrag:
+        - Resourcenplanung (0.5h)
         - Neue Schnittstelle zum Annehmen von Property Dateien.
-        - 
+        - Analysephase dauert länger als veranschlagt, dafür wurde nicht so viel Zeit in der Implementierungsphase benötigt.
     
     Schwierigkeiten:
         - Integrieren der Version

@@ -26,7 +26,7 @@
 %Define Codeblockfont
 %Define imagepath
 \graphicspath{{src/img/}}
-
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
 \renewcommand{\contentsname}{Inhaltsverzeichnis}
 \begin{document}
 %Define Header and footer
@@ -34,12 +34,12 @@
   
   %Deckblatt einfügen
   %table of contents
-  \tableofcontents
-  \clearpage
   \pagenumbering{roman}
-  \section{Abbildungsverzeichnis}
-  \newpage
-  \section{Tabellenverzeichnis}
+  \tableofcontents
+  \addcontentsline{toc}{section}{\listfigurename}
+  \listoffigures
+  \addcontentsline{toc}{section}{\listtablename}
+  \listoftables
   \newpage
   \section{Verzeichnis der Listings}
   \newpage
@@ -50,6 +50,7 @@
   \subsection{Projektbeschreibung}
   \subsection{Projektziel}
   \subsection{Projektumfeld}
+  \subsection{Projektabgrenzung}
   \section{Projektplanung}
   \subsection{Projektphasen}
   \subsection{Vorgehensmodel}
@@ -68,7 +69,8 @@
     \centering
     \includegraphics[width=\textwidth]{ERD_TranslationService_SOLL-Analyse.png}
     \caption{ERD im SOLL Zustand}
-  \end{figure}  \subsection{Wirtschaftsanalyse}
+  \end{figure}  
+  \subsection{Wirtschaftsanalyse}
   \subsubsection{Kostenaufstellung}
   \subsubsection{Aromatisierungsdauer}
   \subsection{Anwendungsfälle}
@@ -96,4 +98,9 @@
   \section{Retroanalyse}
   \subsection{IST-SOLL-Vergleich}
   \subsection{Ausblick}
+  \setcounter{section}{0}
+  \renewcommand{\thesection}{\MakeUppercase{\alph{section}}}
+  \section{Anhang}
+  \subsection{Schnittstelledokumentation}
+  Swagger
 \end{document}

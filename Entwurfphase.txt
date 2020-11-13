@@ -1,0 +1,41 @@
+Zielsetzung
+    Aus den im Lastenheft definierten Anforderungen an die Erweiterung des Übersetzungs-
+    dienst und der Anbindung der OktoPOS Kassensoftware OktoCASH sind folgende Teilaufgaben entstanden:
+        - Schaffen einer Schnittstelle welche die Dateiformatierung der Kassensoftware annimmt und verarbeiten kann
+        - Erweiterung der Datenbank hinsichtlich der Versionierung von Übersetzungen
+        - Schaffen einer neuen Schnittstelle zum vergleichen der Version und dem download abhängig einer Version
+        - Anzeige der Version in der Oberfläche
+        - Erstellen und Freigeben einer neuen Version 
+        - Entwickeln eines Javamoduls mit dem Zweck den Übersetzungsdienst anzusprechen 
+        - 
+        - Datenbankänderung sind zu dokumentieren
+        - Geschäftslogik des Javamoduls ist testbar. Ein buildscript in der Sprache gradle ist zu erstellen.
+        - Schnittstellen sind zu testen und zu dokumentieren
+    
+    Datenbankerweiterung
+        Da die Kassensoftware in unterschiedlichen Versionen betrieben werden kann, gibt es auch Unterschiede in 
+        bestehenden Übersetzungstokens. Dabei kann ein Token in Version x den Wert a haben und in der Version y den Wert b.
+        Eine Version besteht in der Regel aus 3 Teilen *Literaturnachweis.
+            - Major: Beschreibt signifikante Änderungen an einem System
+            - Minor: Beschreibt funktionale Erweiterungen an einem Programm
+            - Patch: Enthält meistens Fehlerbehebungen
+        Zur Realisierung der Version wird das bestehende relationale Datenbankschema (siehe Anhang xxx) um die Entität
+        Version erweitert. Die neue Entität wird in eine 1:n Relation mit der Entität Translation gesetzt.
+        < Ausschnitt der Anpassung >
+        Dadurch entsteht ein neues Datenbankschema(siehe Anhang xxx ERD neu)
+    
+    APIs
+        Für die im Lastenheft definierten Anforderungen zur Erreichbarkeit der Daten durch die Kassensoftware werden drei weitere Schnittstellen benötigt.
+            1. Eine Schnittstelle die das Übersetzungsdateiformat der Kassensoftware annehmen und verarbeiten kann.
+            2. Eine Schnittstelle die eine Version im JSON Format annehmen und darauf entsprechend reagiert:
+                Patch aktuell -> 204 Akzeptiert ohne Änderungen 
+                Patch veraltet -> 200 Anfrage erfolgreich liefere Tokens inklusive Übersetzungen als JSON an den Client aus
+            3. Schnittstelle zum Download eines Tokensets abhängig von Sprache und Version (Major,minor,patch)
+
+    UI Erweiterung
+        Durch die Erweiterung der Version sind einiege Änderungen in der UI des Translationservice notwendig. Dazu gehört ein weiteres Menu 
+        zum Erstellen und Freigeben einer Version. 
+        Manueller Downloadbutton
+        
+
+    Javamodul 

@@ -1,0 +1,24 @@
+Planungsphase:
+    // Beschreibt die Vorgehensweise bei der Entwicklung der Software. Welches Modell wurde verwedent und wie ist der Entwicklungsprozess gestaltet.
+    Vorgehensmodell
+        - Wasserfallmodel Analyse-Entwurf-Entwicklungsphase-Test
+    Entwicklungsphase
+        - Test Driven Development - Entwicklungsprozess wird in 3 Phase unterteilt:
+            1. Tests erstellen
+            2. Implementieren
+            3. Refactoring
+Resourcenplanung
+    // Beschreibt die genutzten Resourcen, die für das Projket benötigt wurden.
+    Open Source und bereits lizensierte Resourcen
+    - Windows 10 
+    - Intellij IDE Ultimate - IDE für Java und PHP
+    - MySql lite
+    - MySql Workbench 
+    - Swagger
+    - GitLab
+    - lucidchart - erstellen von diagrammen
+GANTT Chart:
+    Grobe zeitliche Übersicht der Vorgänge. Da es Vorgänge gibt die < 1 (8h) Tag Zeit in Anspruch nehmen, werden Vorgäng singemäß abstrahiert.
+        - Planung (3h) // - 3 Stunden bei Dokumentation
+        - Analyse ()
+        - Entwurf

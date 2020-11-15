@@ -1,3 +1,6 @@
+Einleitung:
+    Behandlet interdisziplinare Berührungspunkte wie z.b. Java, Php, Gradle, Git und das Deployment von Software
+
 Projektdokumenatation:
     Vorab (Mdl Prüfung):
         Der Übersetzungsdienst war das erste Projekt mit dem ich bei ehemals White-Paper-Media betraut wurde. Es ist von mir unter Aufsicht einers Seniors geplant und programiert worden.

@@ -17,6 +17,7 @@ Resourcenplanung
     - Swagger
     - GitLab
     - lucidchart - erstellen von diagrammen
+    - laragon
 GANTT Chart:
     Grobe zeitliche Übersicht der Vorgänge. Da es Vorgänge gibt die < 1 (8h) Tag Zeit in Anspruch nehmen, werden Vorgäng singemäß abstrahiert.
         - Planung (3h) // - 3 Stunden bei Dokumentation

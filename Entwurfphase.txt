@@ -33,6 +33,12 @@ Zielsetzung
             3. Schnittstelle zum Download eines Tokensets abhängig von Sprache und Version (Major,minor,patch)
 
     UI Erweiterung
+        - Neues Untermenu für die Freigabe einer Version
+            - Anzeigen der Versionen in einem Dropdown absteigend sortiert. Nicht freigebene werden mit einem * markiert.
+            - Anlegen einer neuen Version 
+                - Formular zum Erstellen einer Version + Commitbutton
+            - Freigabebutton für eine nichtfreigegebene Version
+        - 
         Durch die Erweiterung der Version sind einiege Änderungen in der UI des Translationservice notwendig. Dazu gehört ein weiteres Menu 
         zum Erstellen und Freigeben einer Version. 
         Manueller Downloadbutton

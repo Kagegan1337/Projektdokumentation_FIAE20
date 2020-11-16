@@ -1,0 +1,39 @@
+Stakeholders
+    - Übersetzer
+    - Entwickler
+    - Projektadmin
+    - Übersetzungsleiter
+
+Beschreibung des Ist-Zustandes:
+    - done (siehe Analysephase)
+    < Use-Case >
+    < ERD >
+    < Schnittstellenbeschreibung druch swagger>
+    < Schwachstellen >
+Beschreibung des Soll-Zustandes:
+    - done (siehe Analysephase)
+    - Anforderungen die durch die Änderungen erfüllt werden sollen
+Kosten-Nutzenanalyse:
+    - Foglt
+Funktionale Anforderungen:
+    Erweiterung der bestehenden Schnittstellen:
+        - Schnittstelle zum Empfangen von Property Dateien verarbeiten des Inhaltes
+        - Schnittstelle zum Exportieren von JSON abhängig von der mitgesendeten Version
+    Erweiterung des bestehenden UI:
+        - Neues Untermenu zum Anzeigen der Metadaten bestehender Versionen und Anlegen von neuen Versionen.
+        - Anzeigen der verwendeten Version in Token und Translation
+    Java-Modul:
+        - Java Modul (Language Level 8) welches vor Kassenstart mit dem Übersetzungsdienst kommuniziert.
+        - Ansprechen der Export Schnittstelle vom Translationservice mit Version Parameter.
+        - Update der Übersetzungsdateien im Classpath der Kasse
+        - Gradle build script erstellen
+        - Buildtask auf dem Jenkins Buildserver erstellen
+        - 
+Nicht-funktionale Anforderungen:
+    - Übersichtliche Darstellung der bestehenden Versionen
+    - Belastungesfähige REST API Schnittstellen
+Optional:
+    - Absichern der neuen Schnittstellen durch ein geigentes Autorisierungsprinzip (Oauth2, User+password, ...)
+     
+Notwendigkeit und Dringlichkeit
+    - 

@@ -22,26 +22,46 @@ Zielsetzung
         Zur Realisierung der Version wird das bestehende relationale Datenbankschema (siehe Anhang xxx) um die Entität
         Version erweitert. Die neue Entität wird in eine 1:n Relation mit der Entität Translation gesetzt.
         < Ausschnitt der Anpassung >
+        Der Token selbst ist auch mit einer Version versehen um abzubilden, ob dieser in einer Version bereits vorhanden war, nur noch nicht übersetzt. 
+        Ein Token kann in mehreren Versionen vorkommen und eine Version beinhaltet mehrere Tokens. Daher ist eine zwischentabelle token_version notwendig.
+        < Ausschnitt token - version >  
         Dadurch entsteht ein neues Datenbankschema(siehe Anhang xxx ERD neu)
     
     APIs
         Für die im Lastenheft definierten Anforderungen zur Erreichbarkeit der Daten durch die Kassensoftware werden drei weitere Schnittstellen benötigt.
             1. Eine Schnittstelle die das Übersetzungsdateiformat der Kassensoftware annehmen und verarbeiten kann.
+                - Neue Tokens erstellen eine neue Minor Version die später vom Leiter der Übersetzer freigegeben werden muss.
             2. Eine Schnittstelle die eine Version im JSON Format annehmen und darauf entsprechend reagiert:
                 Patch aktuell -> 204 Akzeptiert ohne Änderungen 
                 Patch veraltet -> 200 Anfrage erfolgreich liefere Tokens inklusive Übersetzungen als JSON an den Client aus
-            3. Schnittstelle zum Download eines Tokensets abhängig von Sprache und Version (Major,minor,patch)
 
     UI Erweiterung
-        - Neues Untermenu für die Freigabe einer Version
+        - Neues Untermenu für die Freigabe einer Version (mockup) (Paint/Tool) (siehe Zeichnung)
             - Anzeigen der Versionen in einem Dropdown absteigend sortiert. Nicht freigebene werden mit einem * markiert.
-            - Anlegen einer neuen Version 
-                - Formular zum Erstellen einer Version + Commitbutton
-            - Freigabebutton für eine nichtfreigegebene Version
-        - 
+                - Dropdown besteht aus 2 weiteren dropdowns:
+                    Major -> Minor -> Patch
+                    Jedes Untermenu beinhaltet den Button neue Version. Dieser erstellt nach folgende Prinzip eine neue Version:
+                        Major: Aktuelle Major + 1, 0, 0
+                        Minor: Aktuelle Major, Aktuelle Minor + 1 , 0
+                        Patch: Aktuelle Major, Aktuelle Minor, Aktueller Patch + 1
+                    Jeder Patch ist clickable und zeigt in einem Formular die Metadaten des Patches an.
+                        Version: Major.Minor.Patch,
+                        Erstelldatum: date,
+                        Kommentarfeld  <conditional>: Feld für die Freigabemessage
+                        Freigabebutton <conditional>: Freigabe für den Patch
+        - Tokenübersicht:
+            Dropdown zur auswahl der Version in den die Übersetzungen angezeigt werden. Nur Tokens die in der Version vorkommen.
         Durch die Erweiterung der Version sind einiege Änderungen in der UI des Translationservice notwendig. Dazu gehört ein weiteres Menu 
         zum Erstellen und Freigeben einer Version. 
-        Manueller Downloadbutton
         
-
     Javamodul 
+        - Verwendetes Language Level 8
+        - Buildscript gradle
+        - Sendet über einen HTTP GET Request seine aktuell verwendete Version an den Übersetzungsdienst.
+        - Verwendete Minor and Major werden von der Kassesoftware geliefert.
+        - Ggf. werden neue Übersetzungsdateien gedownloaded.
+            - Json in Propertydateien umwandeln (converter)
+            - Neue Übersetzungsdateien in den Klassenpfad der Kasse legen.
+        - Steuerung des Tools über cmd. (Cmd Parser)
+        - Testen des converters (JUNIT)
+        - 

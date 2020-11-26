@@ -1,0 +1,8 @@
+Tests:
+    1. Schnittstelle zum importieren der Properties dateien.
+            
+    2. Schnittstelle zum Export der aktuellen Version
+
+    3. Schnittstelle Export einer Sprache in einer Version
+    
+    4. Versionrepository

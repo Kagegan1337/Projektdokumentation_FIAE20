@@ -90,9 +90,7 @@ Projektdokumenatation:
 
     Pflichtenheft
         - Auszug aus Projektplanung und Realisierung
-
-    
-
+        
         Zeitplanung
         Grobe Zeitplanung:
             Analysephase: 7h
@@ -153,27 +151,7 @@ Glossar:
     Translationservice
     Branch
     Merge
-    Dump
-
-Versionsbau:
-    Der Abteilungsleiter der Übersetzung hat die Möglichkeit eine neue Version der Übersetzungen zu bauen. (Neues Versionsverzeichnis welches die Übersetzungsdateien beinhaltet)
-    Tokens bekommen ein neus Feld mit Version (Neue Entität). 
-    Das Programm welches für die Kommnunikation mit dem Übersetzungsdienst eingerichtet wurde, schickt seine verwendete Version an den Dienst und bekommt entweder einen 
-    204 (Akzeptiert ohne Änderung) wenn die aktuelle version mit der Version im Übersetzungsdienst übereinstimmt.
-    200 (Anfrage erfolgreich) bekommt die Übersetzungsdateien als JSON zurück.
-    Anpassen der Entitäten:
-    Neue Entität:
-        Version: 
-            VersionId : Integer (PK)
-            Major : Integer
-            Minor : Integer
-            Patch : Integer
-            Kommentar : String
-            ErstellDatum : Date
-            Freigegeben : boolean
-
-        Translation:
-             
+    Dump           
 
     PK Übersetzung wird geändert in TokenId(PK FK) + Version(PK FK) -> Übersetzung.
 
@@ -187,3 +165,6 @@ Versionsbau:
         - IST / SOLL Analyse dauert länger als veranschlagt
     Fragen an Martens:
         Worfür wurde die Entity Import angelegt? (Noch notwendig)
+
+Ausblick:
+    Version für Sprachen

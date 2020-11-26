@@ -11,14 +11,17 @@ Zielsetzung
         - Datenbankänderung sind zu dokumentieren
         - Geschäftslogik des Javamoduls ist testbar. Ein buildscript in der Sprache gradle ist zu erstellen.
         - Schnittstellen sind zu testen und zu dokumentieren
+        - Das Parsen der Property Dateien wird von einem vorhandenen SDK übernommen, welches die property dateien einließt,
+            daraus das schnittstellenkonfromes Format (JSON) baut und dieses an die richtige Schnittstelle sendet.
     
     Datenbankerweiterung
         Da die Kassensoftware in unterschiedlichen Versionen betrieben werden kann, gibt es auch Unterschiede in 
         bestehenden Übersetzungstokens. Dabei kann ein Token in Version x den Wert a haben und in der Version y den Wert b.
-        Eine Version besteht in der Regel aus 3 Teilen *Literaturnachweis.
-            - Major: Beschreibt signifikante Änderungen an einem System
-            - Minor: Beschreibt funktionale Erweiterungen an einem Programm
-            - Patch: Enthält meistens Fehlerbehebungen
+        
+        Version besteht aus id, name und datum. 
+        Es wurde bewusst nicht die Versionsnummervergabe Major,Minor,Patch verwendet da auch andere Formate und nicht numerische Nummern
+        in der Umgebung von OktoPOS verwendet werden. 
+
         Zur Realisierung der Version wird das bestehende relationale Datenbankschema (siehe Anhang xxx) um die Entität
         Version erweitert. Die neue Entität wird in eine 1:n Relation mit der Entität Translation gesetzt.
         < Ausschnitt der Anpassung >
@@ -28,32 +31,17 @@ Zielsetzung
         Dadurch entsteht ein neues Datenbankschema(siehe Anhang xxx ERD neu)
     
     APIs
-        Für die im Lastenheft definierten Anforderungen zur Erreichbarkeit der Daten durch die Kassensoftware werden drei weitere Schnittstellen benötigt.
-            1. Eine Schnittstelle die das Übersetzungsdateiformat der Kassensoftware annehmen und verarbeiten kann.
-                - Neue Tokens erstellen eine neue Minor Version die später vom Leiter der Übersetzer freigegeben werden muss.
-            2. Eine Schnittstelle die eine Version im JSON Format annehmen und darauf entsprechend reagiert:
-                Patch aktuell -> 204 Akzeptiert ohne Änderungen 
-                Patch veraltet -> 200 Anfrage erfolgreich liefere Tokens inklusive Übersetzungen als JSON an den Client aus
+    https://app.swaggerhub.com/apis/Abschlussprojekt/Translationservice/1-oas3#free
 
+        Nach Absprache mit dem zuständigen Projektleiter für den vorhanden Translationservice ergeben sich folgende neue Schnittstellen. Dabei wurde der Fokus 
+        auf die Versionierung gelegt:
+            (siehe swaggerfile)
+        Testen der APIs inklusive einer Testdatenbank (Research)
+    
     UI Erweiterung
-        - Neues Untermenu für die Freigabe einer Version (mockup) (Paint/Tool) (siehe Zeichnung)
-            - Anzeigen der Versionen in einem Dropdown absteigend sortiert. Nicht freigebene werden mit einem * markiert.
-                - Dropdown besteht aus 2 weiteren dropdowns:
-                    Major -> Minor -> Patch
-                    Jedes Untermenu beinhaltet den Button neue Version. Dieser erstellt nach folgende Prinzip eine neue Version:
-                        Major: Aktuelle Major + 1, 0, 0
-                        Minor: Aktuelle Major, Aktuelle Minor + 1 , 0
-                        Patch: Aktuelle Major, Aktuelle Minor, Aktueller Patch + 1
-                    Jeder Patch ist clickable und zeigt in einem Formular die Metadaten des Patches an.
-                        Version: Major.Minor.Patch,
-                        Erstelldatum: date,
-                        Kommentarfeld  <conditional>: Feld für die Freigabemessage
-                        Freigabebutton <conditional>: Freigabe für den Patch
-        - Tokenübersicht:
-            Dropdown zur auswahl der Version in den die Übersetzungen angezeigt werden. Nur Tokens die in der Version vorkommen.
-        Durch die Erweiterung der Version sind einiege Änderungen in der UI des Translationservice notwendig. Dazu gehört ein weiteres Menu 
-        zum Erstellen und Freigeben einer Version. 
-        
+        Die Tokens inklusive der Übersetzung (nullable) abhängig von der Version angezeigt. Dafür wird ein Dropdown angelegt, welches die 
+        einzelnen Versionen anzeigt und per Klick werden die Tokens mit der richtigen Version angezeigt.
+    
     Javamodul 
         - Verwendetes Language Level 8
         - Buildscript gradle

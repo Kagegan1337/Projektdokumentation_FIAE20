@@ -127,6 +127,10 @@ To-Do's
         UseCase Diagramme
         Erd Diagramme
         Swagger
+        TokenDiff als Pseudocode
+        JavaApp als Aktivitätsdiagramm
+        Beschreibung der Testumgebung (Mockup der Datenbank für unverfälschte Testergebnisse, PHPUnit)
+
     Soll-Analyse
         
     Kosten-Nutzen-Analyse

@@ -47,8 +47,29 @@
   \newpage
   \pagenumbering{arabic}
   \section{Einleitung}
+    Im Rahmen der Abschlussarbeit für den Ausbildungberuft Fachinformatiker für Anwendungsentwicklung 
+    wurde diese Projektdokumentation angefertigt. Sie dokumentiert den Ablauf und die Herangehensweise 
+    welche zur Lösung, der im Vorfeld von dem zuständigen Ausbilder definierten, Aufgabe beigetragen haben. 
+    Der Ausbildungsbetrieb OktoPOS Solutions GmbH ist ein mittelständiges Unternehmen mit Hauptsitz in Hamburg.
   \subsection{Projektbeschreibung}
+    Das von der OktoPOS Solutions enwickelte Produkt OkotPOS Cash ist ein, im international Raum, genutztes POS System. 
+    Für eine anwenderfreundliche Nutzung ist die gesamte Textausgabe des Front-End in diversen Sprachen konfigurierbar. Zur Realisierung der Textausgabe in 
+    den geforderten Sprachen, werden im Quellcode Platzhalter (Tokens) statt konkreter Texte verwendet. 
+    FÜr jede Sprache gibt genau eine Property Datei, in der die Texte der jeweiligen Sprache als Key-Value Paar hinterlegt sind.
+    Die Erweiterung und Wartbarkeit dieser Property Dateien sind nach aktuellem Stand optimierungsbedürftig. 
+    Es gibt keine Garantie dafür, dass jede Datei die selbe Anzahl an Tokens beinhalten bzw. es gibt keinen direkten Überblick über den Übersetzungsstand der Dateien. 
+    In den meisten Fällen werden die Übersetzungen von unternehmensfremden Personal angefertigt, die mit der Struktur solcher Dateien nicht vertraut sind und daher mehr Zeit in Anspruch nehmen als notwendig.\\
+    Der unternehmensinternen Übsersetzungsdienst TranslationService, bietet neben den grundlegenden Funktionen zum Importieren/Exportieren von Tokens und Übersetzung auch ein benutzerfreundlichen Userinterface.
   \subsection{Projektziel}
+    Ziel des Projektes ist es, durch die Anbindung der Kassensoftware an den unternehmensinternen Translationservice,
+    den Prozess der Übersetzung von dem Releaseprozess zu entkoppeln und Versionsupdates der Übersetzungen während des Livebetriebes zu ermöglichen.
+    Im Rahmen des Projektes soll die Integrität des Kassencodes erhalten bleiben. Deshalb ist es nötig den Updateprozess in eine weitere Anwendung zu überführen. 
+    Die Anforderungen der Anwendung sind aus dem Soll-Konzept zu entnehmen.\\
+    Der Transaltionservice ist zu so zu erweitern, dass Tokens und Übersetzungen in Abhängigkeit ihrer Version an den Translationservice gesendet bzw. geladen werden können.
+    Nach aktuellem Stand, ist der Translationservice nicht in der Lagen die Tokens und Übersetzungen zu Versionieren. Das Anelgen einer neuen Version erfolgt von außen über eine zu schaffende Schnittstelle.
+    Im Front-End des Translationservice, soll die Möglichkeit gegeben werden die Tokens und den Stand der Übersetzung nach ihrer Version anzuzeigen.
+    Da das Erstellen der Schnittstellen, die Implementierung der neuen Anwendung, das Testen der Komponenten usw. bereits die veranschlagten 70 Stunden benötigt,
+    werden das Deployment der Minianwendung sowie die Anpasssung des Deploymentprozesses der Kassesoftware als Fremdleistung an eine andere Abteilung weitergegeben. 
   \subsection{Projektumfeld}
   \subsection{Projektabgrenzung}
   \section{Projektplanung}

@@ -1,0 +1,22 @@
+{
+  "target": {
+    "label": "dev"
+  },
+  "tokens": [
+    {
+      "label": "foo-dev",
+      "file": "fooObject.java",
+      "line": 11
+    },
+    {
+      "label": "bar-dev",
+      "file": "barObject.java",
+      "line": 32
+    },
+    {
+      "label": "roh",
+      "file": "fooObject.java",
+      "line": 11
+    }
+  ]
+}

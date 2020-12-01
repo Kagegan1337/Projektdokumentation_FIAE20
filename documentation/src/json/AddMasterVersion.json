@@ -1,0 +1,22 @@
+{
+  "target": {
+    "label": "master"
+  },
+  "tokens": [
+    {
+      "label": "foo-master",
+      "file": "fooObject.java",
+      "line": 11
+    },
+    {
+      "label": "bar-master",
+      "file": "barObject.java",
+      "line": 32
+    },
+    {
+      "label": "roh",
+      "file": "fooObject.java",
+      "line": 11
+    }
+  ]
+}

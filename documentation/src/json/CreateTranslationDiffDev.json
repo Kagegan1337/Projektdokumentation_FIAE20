@@ -1,0 +1,17 @@
+[
+    {
+        "token": "foo-dev",
+        "language": "de-DE",
+        "translation": "foo dev"
+    },
+    {
+        "token": "roh",
+        "language": "de-DE",
+        "translation": "roh dev"
+    },
+    {
+        "token": "bar-dev",
+        "language": "de-DE",
+        "translation": "bar dev"
+    }
+]

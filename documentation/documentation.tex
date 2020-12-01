@@ -4,10 +4,17 @@
 \author{Philipp Jetzlaff}
 \title{Projektdokumentation}
 
-%packages
+%%%%%%%%%%%%%%%%% P A C K A G E S %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Package to create a custom header, that is printed on every page in the document.
 \usepackage{fancyhdr}
+%Package to include graphics.
 \usepackage{graphicx}
+%Package to defines the paper enviroment
 \usepackage[a4paper, headheight=55pt, bottom=20mm]{geometry}
+%Package to defines hyperrefs in the document. E.g references to figures or tables
+\usepackage{hyperref}
+%Package to use colors in the documents. For example \rowcolor
+\usepackage{color, colortbl}
 %Define Header
 \fancyhf{}
 \fancyhead[R]{\includegraphics[width=0.11\textwidth]{OktoPOS.png}}
@@ -22,12 +29,17 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{1pt}
-
+%Define Colors
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{blue-green}{rgb}{0.0, 0.87, 0.87}
+\definecolor{carolinablue}{rgb}{0.6, 0.73, 0.89}
+\definecolor{lightgray}{rgb}{0.83, 0.83, 0.83}
 %Define Codeblockfont
 %Define imagepath
 \graphicspath{{src/img/}}
 \renewcommand{\listfigurename}{Abbildungsverzeichnis}
 \renewcommand{\contentsname}{Inhaltsverzeichnis}
+\renewcommand{\tablename}{Tabelle}
 \begin{document}
 %Define Header and footer
   \pagestyle{fancy}
@@ -55,7 +67,7 @@
     Das von der OktoPOS Solutions enwickelte Produkt OkotPOS Cash ist ein, im international Raum, genutztes POS System. 
     Für eine anwenderfreundliche Nutzung ist die gesamte Textausgabe des Front-End in diversen Sprachen konfigurierbar. Zur Realisierung der Textausgabe in 
     den geforderten Sprachen, werden im Quellcode Platzhalter (Tokens) statt konkreter Texte verwendet. 
-    FÜr jede Sprache gibt genau eine Property Datei, in der die Texte der jeweiligen Sprache als Key-Value Paar hinterlegt sind.
+    Für jede Sprache gibt genau eine Property Datei, in der die Texte der jeweiligen Sprache als Key-Value Paar hinterlegt sind.
     Die Erweiterung und Wartbarkeit dieser Property Dateien sind nach aktuellem Stand optimierungsbedürftig. 
     Es gibt keine Garantie dafür, dass jede Datei die selbe Anzahl an Tokens beinhalten bzw. es gibt keinen direkten Überblick über den Übersetzungsstand der Dateien. 
     In den meisten Fällen werden die Übersetzungen von unternehmensfremden Personal angefertigt, die mit der Struktur solcher Dateien nicht vertraut sind und daher mehr Zeit in Anspruch nehmen als notwendig.\\
@@ -69,13 +81,48 @@
     Nach aktuellem Stand, ist der Translationservice nicht in der Lagen die Tokens und Übersetzungen zu Versionieren. Das Anelgen einer neuen Version erfolgt von außen über eine zu schaffende Schnittstelle.
     Im Front-End des Translationservice, soll die Möglichkeit gegeben werden die Tokens und den Stand der Übersetzung nach ihrer Version anzuzeigen.
     Da das Erstellen der Schnittstellen, die Implementierung der neuen Anwendung, das Testen der Komponenten usw. bereits die veranschlagten 70 Stunden benötigt,
-    werden das Deployment der Minianwendung sowie die Anpasssung des Deploymentprozesses der Kassesoftware als Fremdleistung an eine andere Abteilung weitergegeben. 
+    werden das Deployment der Minianwendung sowie die Anpasssung des Deploymentprozesses der Kassesoftware und die Anpassungen am Frontend als Fremdleistung an eine andere Abteilung weitergegeben. 
   \subsection{Projektumfeld}
+    Primär ist das Projekt ein Auftrag der Entwicklungsabteilung des Kassensystems. Das Java gestützte POS System nutzt Übersetzungsdateien um Textstellen im Front-End in verschiedenen Sprachen darzustellen.
+    Während der Entwicklung an der Kasse, speziell beim implementieren von Features, werden in machen Fällen neue Übersetzungstokens eingeführt. Der Entwickler muss dabei den Token in jede einzelne Datei schreiben. 
+    Die Übersetzer des Tochterunternehmens OktoCareer nutzen den Translationserivce für die Übersetzungen an dem Personalmanagementsystem OktoCareer. 
+    Der TranslationSerivce bietet eine Datenstruktur, welche mit geringen Aufwand auf die neuen Anforderungen angepasst werden kann, und die grundlegende Struktur für die RESTFull API. 
   \subsection{Projektabgrenzung}
+    Die beschränkte Dauer die für dieses Projekt zur Verfügung gestellt wurde, führt dazu das Teile zur Realisierung des Gesamtprojektes an andere Abteilungen ausgelagert werden müssen.
+    Dazu gehören die Anpassungen im Front-End des TransaltionService, sowie das Einrichten des GitWebhooks für die Kassensoftware. Ein bereits vorhandener Service hat bereits die Möglichkeit die Übersetzungsdateien 
+    der Kasse in das geplante Format für die Schnittstellen des TranslationService konvertieren. 
   \section{Projektplanung}
   \subsection{Projektphasen}
+    Im Vorfeld des Projektes wurden die zu Verfügung stehenden 70 Entwicklerstunden auf verschiende Projektphasen aufgeteilt. Die Zeiteinteilung sowie die einezlene Projektphasen wurden in einer groben Tabelle (\hyperref[tab:timing]{Tabelle 1: Grobe Zeiplanung}) zusammengefasst.
+    Eine genaue Zeitplanung inklusive der Aufgaben jeder einzelnen Phase können aus dem \hyperref[sec:detailTime]{Anhang \ref{sec:detailTime}} entnommen werden.
+    \begin{table}[h]
+      \label{tab:timing}
+      \centering
+    \begin{tabular}{| l | r |}
+      \rowcolor{carolinablue}
+      Projektphase & Stunden \\
+      \hline
+      Analysephase & 7h \\
+      \hline
+      \rowcolor{lightgray}
+      Entwurfsphase & 11h\\
+      \hline
+      Implementierungsphase & 35h\\
+      \hline
+      \rowcolor{lightgray}
+      Abnahme und Testphase & 3h\\
+      \hline
+      Dokumentation & 14h \\
+      \hline
+      \rowcolor{carolinablue}
+      Gesamtstunden & 70h
+    \end{tabular}
+    \caption{Grobe Zeitplanung}
+  \end{table}
+    Um die zeitliche Abfolge der einzelnen Projektphase grafisch darzustellen, wurden die einzelnen Aufgaben aus den Projektphasen in sinngemäße Aufgaben zusammengefasst und ein Gantt-Chart überführt \hyperref[sec:GanttChart]{Anhang \ref{sec:GanttChart}}.
   \subsection{Vorgehensmodel}
-  \subsection{Genutzte Resourcen}
+    Zu Beginn des Projektes wurde eine agile Softwareentwicklung in Anlehnung zu
+  \subsection{Resourcenplanung}
   \section{Analysephase}
   \subsection{Ist-Analyse}
   \begin{figure}[h]
@@ -122,6 +169,13 @@
   \setcounter{section}{0}
   \renewcommand{\thesection}{\MakeUppercase{\alph{section}}}
   \section{Anhang}
+  \subsection{Detaillierte Zeitplanung}\label{sec:detailTime}
+  \subsection{Gantt-Chart}\label{sec:GanttChart}
+    Gantt Chart will follow!
+    \newpage
+  
+    
   \subsection{Schnittstelledokumentation}
+    \label{interfaceDocumentation}
   Swagger
 \end{document}

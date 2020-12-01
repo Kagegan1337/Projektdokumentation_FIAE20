@@ -1,0 +1,17 @@
+[
+    {
+        "token": "foo-master",
+        "language": "de-DE",
+        "translation": "foo master"
+    },
+    {
+        "token": "roh",
+        "language": "de-DE",
+        "translation": "roh master"
+    },
+    {
+        "token": "bar-master",
+        "language": "de-DE",
+        "translation": "bar master"
+    }
+]

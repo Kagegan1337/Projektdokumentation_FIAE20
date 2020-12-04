@@ -1,16 +1,64 @@
 \BOOKMARK [1][-]{section*.1}{Abbildungsverzeichnis}{}% 1
-\BOOKMARK [1][-]{section*.2}{List of Tables}{}% 2
-\BOOKMARK [1][-]{section.1}{Verzeichnis der Listings}{}% 3
-\BOOKMARK [1][-]{section.2}{Glossar}{}% 4
-\BOOKMARK [1][-]{section.3}{Einleitung}{}% 5
-\BOOKMARK [2][-]{subsection.3.1}{Projektbeschreibung}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.2}{Projektziel}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.3}{Projektumfeld}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.4}{Projektabgrenzung}{section.3}% 9
-\BOOKMARK [1][-]{section.4}{Projektplanung}{}% 10
-\BOOKMARK [2][-]{subsection.4.1}{Projektphasen}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.2}{Vorgehensmodel}{section.4}% 12
-\BOOKMARK [2][-]{subsection.4.3}{Resourcenplanung}{section.4}% 13
-\BOOKMARK [1][-]{section.5}{Analysephase}{}% 14
-\BOOKMARK [2][-]{subsection.5.1}{Ist-Analyse}{section.5}% 15
-\BOOKMARK [2][-]{subsection.5.2}{Soll-Analyse}{section.5}% 16
+\BOOKMARK [1][-]{section*.2}{Tabellenverzeichnis}{}% 2
+\BOOKMARK [1][-]{section.1}{Glossar}{}% 3
+\BOOKMARK [1][-]{section.2}{Einleitung}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Projektbeschreibung}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Projektziel}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Projektumfeld}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Projektabgrenzung}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{Projektplanung}{}% 9
+\BOOKMARK [2][-]{subsection.3.1}{Projektphasen}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.2}{Vorgehensmodel}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.3}{Resourcenplanung}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{Analysephase}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{Ist-Analyse}{section.4}% 14
+\BOOKMARK [3][-]{subsubsection.4.1.1}{OkotoPOS Cash}{subsection.4.1}% 15
+\BOOKMARK [3][-]{subsubsection.4.1.2}{TranslationService}{subsection.4.1}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Soll-Analyse}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.3}{Wirtschaftsanalyse}{section.4}% 18
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Monetare Vorteile}{subsection.4.3}% 19
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Nicht-monetare Vorteile}{subsection.4.3}% 20
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Kostenaufstellung}{subsection.4.3}% 21
+\BOOKMARK [3][-]{subsubsection.4.3.4}{Aromatisierungsdauer}{subsection.4.3}% 22
+\BOOKMARK [2][-]{subsection.4.4}{Anwendungsf\344lle}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.5}{Komponenten}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.6}{Lastenheft}{section.4}% 25
+\BOOKMARK [1][-]{section.5}{Entwurfsphase}{}% 26
+\BOOKMARK [2][-]{subsection.5.1}{Zielplattform}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.2}{Architektur}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.3}{Benutzeroberfl\344che}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.4}{Datengrundlage}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.5}{RESTFul APIs}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.6}{Testcases}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.7}{Pflichtenheft}{section.5}% 33
+\BOOKMARK [1][-]{section.6}{Implementierungsphase}{}% 34
+\BOOKMARK [2][-]{subsection.6.1}{Iterationsphase}{section.6}% 35
+\BOOKMARK [2][-]{subsection.6.2}{Translationservice}{section.6}% 36
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Erweiterung der bestehenden Datenstruktur}{subsection.6.2}% 37
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Erweitern der Schnittstellen}{subsection.6.2}% 38
+\BOOKMARK [3][-]{subsubsection.6.2.3}{Anpassen der Gesch\344ftslogik}{subsection.6.2}% 39
+\BOOKMARK [3][-]{subsubsection.6.2.4}{Anpassen der Benutzeroberfl\344che}{subsection.6.2}% 40
+\BOOKMARK [2][-]{subsection.6.3}{Translationupdater}{section.6}% 41
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Implementierung der Gesch\344ftslogik}{subsection.6.3}% 42
+\BOOKMARK [1][-]{section.7}{Abnahme- und Einf\374hrungsphase}{}% 43
+\BOOKMARK [2][-]{subsection.7.1}{Abnahme durch den Fachbereich}{section.7}% 44
+\BOOKMARK [2][-]{subsection.7.2}{Deployment}{section.7}% 45
+\BOOKMARK [1][-]{section.8}{Dokumentation}{}% 46
+\BOOKMARK [1][-]{section.9}{Retroanalyse}{}% 47
+\BOOKMARK [2][-]{subsection.9.1}{IST-SOLL-Vergleich}{section.9}% 48
+\BOOKMARK [2][-]{subsection.9.2}{Ausblick}{section.9}% 49
+\BOOKMARK [1][-]{section.1}{Anhang}{}% 50
+\BOOKMARK [2][-]{subsection.1.1}{Detaillierte Zeitplanung}{section.1}% 51
+\BOOKMARK [2][-]{subsection.1.2}{Gantt-Chart}{section.1}% 52
+\BOOKMARK [2][-]{subsection.1.3}{Datenbankmodelle}{section.1}% 53
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Urspr\374ngliche Datenbankstruktur}{subsection.1.3}% 54
+\BOOKMARK [2][-]{subsection.1.4}{UML Anwendungsfalldiagramm}{section.1}% 55
+\BOOKMARK [3][-]{subsubsection.1.4.1}{OkotoPOS Cash}{subsection.1.4}% 56
+\BOOKMARK [3][-]{subsubsection.1.4.2}{Translationservice}{subsection.1.4}% 57
+\BOOKMARK [2][-]{subsection.1.5}{Komponentendiagramm}{section.1}% 58
+\BOOKMARK [2][-]{subsection.1.6}{Schnittstelledokumentation}{section.1}% 59
+\BOOKMARK [2][-]{subsection.1.7}{Resourcen und Technologien}{section.1}% 60
+\BOOKMARK [2][-]{subsection.1.8}{Testcases Translationservice}{section.1}% 61
+\BOOKMARK [2][-]{subsection.1.9}{Testcases Translationservice}{section.1}% 62
+\BOOKMARK [2][-]{subsection.1.10}{Iternationsplan}{section.1}% 63
+\BOOKMARK [1][-]{section.2}{Listings}{}% 64

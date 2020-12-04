@@ -1,4 +1,4 @@
-\documentclass[oneside]{article}
+\documentclass[10pt, oneside]{article}
 
 
 \author{Philipp Jetzlaff}
@@ -9,12 +9,19 @@
 \usepackage{fancyhdr}
 %Package to include graphics.
 \usepackage{graphicx}
+\usepackage{helvet}
 %Package to defines the paper enviroment
-\usepackage[a4paper, headheight=55pt, bottom=20mm]{geometry}
+\usepackage[a4paper, headheight=60pt, bottom=20mm, left=25mm, right=25mm]{geometry}
 %Package to defines hyperrefs in the document. E.g references to figures or tables
 \usepackage{hyperref}
+\usepackage{nameref}
+%Packages to use sourcecode in this document
+\usepackage{listings}
+\usepackage{caption}
 %Package to use colors in the documents. For example \rowcolor
 \usepackage{color, colortbl}
+
+
 %Define Header
 \fancyhf{}
 \fancyhead[R]{\includegraphics[width=0.11\textwidth]{OktoPOS.png}}
@@ -38,8 +45,19 @@
 %Define imagepath
 \graphicspath{{src/img/}}
 \renewcommand{\listfigurename}{Abbildungsverzeichnis}
+\renewcommand{\listtablename}{Tabellenverzeichnis}
 \renewcommand{\contentsname}{Inhaltsverzeichnis}
+\renewcommand{\lstlistlistingname}{Listingsverzeichnis}
+
 \renewcommand{\tablename}{Tabelle}
+\renewcommand{\figurename}{Abbildung}
+\newcommand{\tabsecref}[1]{\hyperref[{#1}]{Tabelle \thesubsection. \nameref*{#1}}}
+\newcommand{\figsecref}[1]{\hyperref[{#1}]{Abbildung \thesubsection. \nameref*{#1}}}
+\newcommand{\attsecref}[1]{\hyperref[{#1}]{Anhang \thesubsection. \nameref*{#1}}}
+\newcommand{\secref}[1]{\hyperref[{#1}]{\nameref{#1}}}
+\newcommand{\tabref}[1]{\nameref{#1}}
+\renewcommand{\familydefault}{\sfdefault}
+
 \begin{document}
 %Define Header and footer
   \pagestyle{fancy}
@@ -53,52 +71,65 @@
   \addcontentsline{toc}{section}{\listtablename}
   \listoftables
   \newpage
-  \section{Verzeichnis der Listings}
+  \lstlistoflistings
   \newpage
   \section{Glossar}
   \newpage
   \pagenumbering{arabic}
-  \section{Einleitung}
+  \section{Einleitung}%Überarbeiten
+  !!!!! labels kontrollieren !!!!!
+    ÜBERARBEITEN\\
     Im Rahmen der Abschlussarbeit für den Ausbildungberuft Fachinformatiker für Anwendungsentwicklung 
     wurde diese Projektdokumentation angefertigt. Sie dokumentiert den Ablauf und die Herangehensweise 
     welche zur Lösung, der im Vorfeld von dem zuständigen Ausbilder definierten, Aufgabe beigetragen haben. 
     Der Ausbildungsbetrieb OktoPOS Solutions GmbH ist ein mittelständiges Unternehmen mit Hauptsitz in Hamburg.
-  \subsection{Projektbeschreibung}
+  \subsection{Projektbeschreibung}\label{sec:projectdesc}%Überarbeiten
+    ÄNDERUNGEN HIER\\
     Das von der OktoPOS Solutions enwickelte Produkt OkotPOS Cash ist ein, im international Raum, genutztes POS System. 
-    Für eine anwenderfreundliche Nutzung ist die gesamte Textausgabe des Front-End in diversen Sprachen konfigurierbar. Zur Realisierung der Textausgabe in 
-    den geforderten Sprachen, werden im Quellcode Platzhalter (Tokens) statt konkreter Texte verwendet. 
+    Für eine anwenderfreundliche Nutzung ist die gesamte Textausgabe des Front-End in diversen Sprachen konfigurierbar. 
+    Zur Realisierung der Textausgabe in den geforderten Sprachen, werden im Quellcode Platzhalter (Tokens) statt konkreter Texte verwendet. 
     Für jede Sprache gibt genau eine Property Datei, in der die Texte der jeweiligen Sprache als Key-Value Paar hinterlegt sind.
     Die Erweiterung und Wartbarkeit dieser Property Dateien sind nach aktuellem Stand optimierungsbedürftig. 
-    Es gibt keine Garantie dafür, dass jede Datei die selbe Anzahl an Tokens beinhalten bzw. es gibt keinen direkten Überblick über den Übersetzungsstand der Dateien. 
-    In den meisten Fällen werden die Übersetzungen von unternehmensfremden Personal angefertigt, die mit der Struktur solcher Dateien nicht vertraut sind und daher mehr Zeit in Anspruch nehmen als notwendig.\\
-    Der unternehmensinternen Übsersetzungsdienst TranslationService, bietet neben den grundlegenden Funktionen zum Importieren/Exportieren von Tokens und Übersetzung auch ein benutzerfreundlichen Userinterface.
-  \subsection{Projektziel}
+    Es gibt keine Garantie dafür, dass jede Datei die selbe Anzahl an Tokens beinhalten bzw. es gibt keinen direkten Überblick 
+    über den Übersetzungsstand der Dateien. 
+    In den meisten Fällen werden die Übersetzungen von unternehmensfremden Personal angefertigt, 
+    die mit der Struktur solcher Dateien nicht vertraut sind und daher mehr Zeit in Anspruch nehmen als notwendig.\\
+    Der unternehmensinternen Übsersetzungsdienst TranslationService, bietet neben den grundlegenden Funktionen zum 
+    Importieren/Exportieren von Tokens und Übersetzung auch ein benutzerfreundlichen Userinterface.
+  \subsection{Projektziel}%Überarbeiten
+    ÄNDERUNGEN HIER\\
     Ziel des Projektes ist es, durch die Anbindung der Kassensoftware an den unternehmensinternen Translationservice,
     den Prozess der Übersetzung von dem Releaseprozess zu entkoppeln und Versionsupdates der Übersetzungen während des Livebetriebes zu ermöglichen.
-    Im Rahmen des Projektes soll die Integrität des Kassencodes erhalten bleiben. Deshalb ist es nötig den Updateprozess in eine weitere Anwendung zu überführen. 
-    Die Anforderungen der Anwendung sind aus dem Soll-Konzept zu entnehmen.\\
-    Der Transaltionservice ist zu so zu erweitern, dass Tokens und Übersetzungen in Abhängigkeit ihrer Version an den Translationservice gesendet bzw. geladen werden können.
-    Nach aktuellem Stand, ist der Translationservice nicht in der Lagen die Tokens und Übersetzungen zu Versionieren. Das Anelgen einer neuen Version erfolgt von außen über eine zu schaffende Schnittstelle.
-    Im Front-End des Translationservice, soll die Möglichkeit gegeben werden die Tokens und den Stand der Übersetzung nach ihrer Version anzuzeigen.
+    Im Rahmen des Projektes soll die Integrität des Kassencodes erhalten bleiben. Deshalb ist es nötig den Updateprozess 
+    in eine weitere Anwendung zu überführen. Die Anforderungen der Anwendung sind aus dem Soll-Konzept zu entnehmen.\\
+    Der Transaltionservice ist zu so zu erweitern, dass Tokens und Übersetzungen in Abhängigkeit ihrer Version an den 
+    Translationservice gesendet bzw. geladen werden können.
+    Nach aktuellem Stand, ist der Translationservice nicht in der Lagen die Tokens und Übersetzungen zu Versionieren. 
+    Das Anelgen einer neuen Version erfolgt von außen über eine zu schaffende Schnittstelle.Im Front-End des Translationservice, soll die Möglichkeit gegeben 
+    werden die Tokens und den Stand der Übersetzung nach ihrer Version anzuzeigen.
     Da das Erstellen der Schnittstellen, die Implementierung der neuen Anwendung, das Testen der Komponenten usw. bereits die veranschlagten 70 Stunden benötigt,
     werden das Deployment der Minianwendung sowie die Anpasssung des Deploymentprozesses der Kassesoftware und die Anpassungen am Frontend als Fremdleistung an eine andere Abteilung weitergegeben. 
-  \subsection{Projektumfeld}
+  \subsection{Projektumfeld}\label{sec:projectEnv}%Überarbeiten
+    ÄNDERUNGEN HIER\\
     Primär ist das Projekt ein Auftrag der Entwicklungsabteilung des Kassensystems. Das Java gestützte POS System nutzt Übersetzungsdateien um Textstellen im Front-End in verschiedenen Sprachen darzustellen.
     Während der Entwicklung an der Kasse, speziell beim implementieren von Features, werden in machen Fällen neue Übersetzungstokens eingeführt. Der Entwickler muss dabei den Token in jede einzelne Datei schreiben. 
     Die Übersetzer des Tochterunternehmens OktoCareer nutzen den Translationserivce für die Übersetzungen an dem Personalmanagementsystem OktoCareer. 
     Der TranslationSerivce bietet eine Datenstruktur, welche mit geringen Aufwand auf die neuen Anforderungen angepasst werden kann, und die grundlegende Struktur für die RESTFull API. 
-  \subsection{Projektabgrenzung}
-    Die beschränkte Dauer die für dieses Projekt zur Verfügung gestellt wurde, führt dazu das Teile zur Realisierung des Gesamtprojektes an andere Abteilungen ausgelagert werden müssen.
-    Dazu gehören die Anpassungen im Front-End des TransaltionService, sowie das Einrichten des GitWebhooks für die Kassensoftware. Ein bereits vorhandener Service hat bereits die Möglichkeit die Übersetzungsdateien 
-    der Kasse in das geplante Format für die Schnittstellen des TranslationService konvertieren. 
+  \subsection{Projektabgrenzung}%Überarbeiten
+    Die grundlegende Struktur des Translationservice ist bereits implementieren und wird produktiv im Betrieb genutzt. Das Projekt beschränkt sich hinsichtlich der Arbeiten an dem Transaltionservice nur auf das Hinzufügen der 
+    neuen Schnittstellen, dem Erweiteren der Datenbank und den daraus resultierenden Änderungen an den vorhandenen Entitäten und Front-End Anpassungen.
+    Durch die beschränkte Dauer die für dieses Projekt zur Verfügung gestellt wurde, hat zur Folge, dass Teile zur Realisierung des Gesamtprojektes an andere Abteilungen ausgelagert werden müssen.
+    Dazu gehört der GitWebhook, welcher die Übersetzungsdateien der Kasse an den Übersetzungsdienst übergibt.
   \section{Projektplanung}
-  \subsection{Projektphasen}
-    Im Vorfeld des Projektes wurden die zu Verfügung stehenden 70 Entwicklerstunden auf verschiende Projektphasen aufgeteilt. Die Zeiteinteilung sowie die einezlene Projektphasen wurden in einer groben Tabelle (\hyperref[tab:timing]{Tabelle 1: Grobe Zeiplanung}) zusammengefasst.
-    Eine genaue Zeitplanung inklusive der Aufgaben jeder einzelnen Phase können aus dem \hyperref[sec:detailTime]{Anhang \ref{sec:detailTime}} entnommen werden.
-    \begin{table}[h]
+  \subsection{Projektphasen}%Überarbeiten
+    Im Vorfeld des Projektes wurden die zu Verfügung stehenden 70 Entwicklerstunden auf verschiende Projektphasen aufgeteilt. 
+    Die Zeiteinteilung sowie die einezlene Projektphasen wurden in einer groben Tabelle (\hyperref[tab:timing]{Tabelle 1: Grobe Zeiplanung}) zusammengefasst.
+    Eine genaue Zeitplanung inklusive der Aufgaben jeder einzelnen Phase können aus dem \attsecref{sec:detailTime} entnommen werden. 
+    \begin{table}[ht]
       \label{tab:timing}
       \centering
     \begin{tabular}{| l | r |}
+      \hline
       \rowcolor{carolinablue}
       Projektphase & Stunden \\
       \hline
@@ -115,50 +146,174 @@
       Dokumentation & 14h \\
       \hline
       \rowcolor{carolinablue}
-      Gesamtstunden & 70h
+      Gesamtstunden & 70h\\
+      \hline
     \end{tabular}
     \caption{Grobe Zeitplanung}
   \end{table}
-    Um die zeitliche Abfolge der einzelnen Projektphase grafisch darzustellen, wurden die einzelnen Aufgaben aus den Projektphasen in sinngemäße Aufgaben zusammengefasst und ein Gantt-Chart überführt \hyperref[sec:GanttChart]{Anhang \ref{sec:GanttChart}}.
-  \subsection{Vorgehensmodel}
-    Zu Beginn des Projektes wurde eine agile Softwareentwicklung in Anlehnung zu
-  \subsection{Resourcenplanung}
+    Um die zeitliche Abfolge der einzelnen Projektphase grafisch darzustellen, wurden die einzelnen Aufgaben aus den 
+    Projektphasen in sinngemäße Aufgaben zusammengefasst und ein Gantt-Chart überführt \attsecref{sec:GanttChart}.
+  \subsection{Vorgehensmodel}%NOCH MACHEN
+    ÄNDERUNGEN HIER
+  \subsection{Resourcenplanung}%Überarbeiten
+    Das Projekt wurde auf den von dem Ausbildungsbetrieb zur Verfügung gestellten Windows Surface Book und Windwos 10 geplant, bearbeitet und getestet. 
+    Dabei wurde als Entwicklungsumgebung für den TransaltionService sowie für die Java App die für den Betrieb linzensierte 
+    Software IntelliJ Ultimate von der Firma JetBrains verwendet. 
+    Die Grundlage der Daten für den TranslationSerivce sind in einer MySql Datenbank gespeichert. 
+    Zur Überprüfung der korrekten Anwendung des ORM Frameworks "Doctrine" hinsichtlich DDL und DQL, 
+    wurden die Ergebnisse über die Software MySQL Workbench mittels SQL Abfragen validiert. 
+    Neben den automatisierten Tests der Schnittstellen mit PHPUnit, 
+    wurden regelmäßig mit der Software Postman Anfragen an die REST Schnittstellen geschickt.
+    Für die, in Latex erstellte, Dokumentation notwendigen Diagramme wurden über den Onlinedienst Lucidchart angefertigt.
+    Eine genaue Übersicht aller verwendeten Resoucren ist in der \attsecref{sec:resources} zu finden.
   \section{Analysephase}
-  \subsection{Ist-Analyse}
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{ERD_TranslationService_IST-Analyse.png}
-    \caption{ERD im IST Zustand}
-  \end{figure}
-  \newpage
-  \subsection{Soll-Analyse}
-  asd
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{ERD_TranslationService_SOLL-Analyse.png}
-    \caption{ERD im SOLL Zustand}
-  \end{figure}  
+  \subsection{Ist-Analyse}\label{sec:analyse:current}%Überarbeiten
+    In der nachfolgende Analyse wird das Kassensystem OktoPOS Cash und der Übersetzungsdienst TranslationService in sein ursprünglichen Verfassung beschreiben.
+  \subsubsection{OkotoPOS Cash}\label{sec:analyse:current:cash}%Überarbeiten
+    Wie in der \secref{sec:projectdesc} und dem \secref{sec:projectEnv} beschrieben untertützt das Kassensystem OktoPOS Cash ein multilinguales Front-End.
+    Um das zu gewährleisten, werden im Quellcode der Kasse s.g. Übersetzungstokens verwendent. Für jede unterstützte Sprache, ist eine Übersetzungs-datei im Porpertyformat
+    in der Ressourcen der Kasse hinterlegt. Jede Datei beinhaltet das gleiche Set an Tokens mit der jeweiligen Übersetzung als Key-Value Paar. 
+    Bei der Einführung eines neue Tokens kopiert der  Entwickler den neuen Token in eine der Dateien mit einer sinngemäßen Übersetzung.
+    Da es im Unternehmen gängig ist, die Tokens nur in eine bzw. maximal zwei Datein zu überführen, wird die Aufgabe der Wartung und Pflege an 
+    die Übersetzungsabteilung deligiert. Neben der trivialen und zeitaufwändigen Arbeit die einzelenen Dateien auf den gleich Stand zu halten
+    kann es, auf Grund von diversen Faktoren, passieren das der Stand der Dateien divergiert.\\
+    Bisher gibt es keine konkrete Oberfläche um Übersetzungen für die einzelnen Tokens anzufertigen bzw. auch keine direkte Refferenz auf die Textstelle 
+    auf die der Token zeigen soll. Der Übersetzer hat die Aufgabe aus geeigneten Quellen (Ticketsystem, andere Übersetzungsdatei, Entwickler fragen) sich eine exemplarische Übersetzung
+    zu beschaffen. Es gibt allerdings auch Fälle bei denen bisher keine Übersetzung für einen Token erstellt wurde. Dann hat der Übersetzer die Aufgabe, 
+    über das Lesen von Quellcode die richtige Textstelle im Front-End zu finden.\\
+    Im aktuellen Workflow werden die Übersetzungsdatein im Betazustand einer neuen Minorversion an die Abteilung für Übersetzung übergeben. Nach Fertigstellung
+    der Übersetzung werden überarbeiteten Dateien an Projectowner der Kassesoftware übergeben, welcher er dann mit den alten Übersetzungs-dateien zusammenführt.
+    Dadurch kann nur noch indirekt über einen Releasebranch auf die verwendeten Übersetzungen geschlossen werden und nicht über einen Versionsstand der Übersetzungsdateien. 
+    Außerdem hat der workflow die Folge, dass Änderungen an den Übersetzungsdateien (Rechtschreib-fehler) ein Versionsupdate der Kasse mit sich bringt.\\
+  \subsubsection{TranslationService}\label{sec:analyse:current:ts}%Überarbeiten
+    Für die Übersetzungen in einem anderen System des Unternehmens wurde der webbasierte Transaltion-service entwicklet. 
+    Dieser hat die Aufgabe über Schnittstellen, Tokens zu importieren.
+    In einer benutzerfreundlicher Übersicht hat der Übersetzer die Möglichkeit sich nicht übersetzte Tokens für seine Sprache anzeigen zu lassen.
+    Neben der Übersicht hat jeder Token, falls vorhanden, eine exemplarische Üebrsetzung für jede Sprache in der Token bereits übersetzt wurde.
+    Der Translationservice biete verschiedene Möglichkeiten die Informationen für Tokens anzeigen zu lassen. 
+    Bisher ist es allerdings nicht möglich eine Übersetzung zu versionieren. Das bedeutet, das die Änderungen an den Übersetzungen final sind und nicht 
+    mehr auf alte Übersetzungen zurückgeschlossen werden kann.
+    Die Daten des Übersetzungsdienst sind in einer MySql Datenbank gespeichert. In der \figsecref{abb:erdIs1} ist eine grobe Übersicht über das Datenbankmodel aufgezeigt. 
+    Das vollständige ERD ist im \attsecref{sec:isErd} zu finden.
+  
+  \subsection{Soll-Analyse}%Überarbeiten
+    Druch die Anbindung des Kassensystems an den Transaltionservice soll die Pflege und Wartung nahezu automatisiert werden. 
+    Die Übesetzungen für die einzelnen Tokens sollen über eine neue Schnittstelle am Translationservice in Abhängigkeit zu ihrer Version geladen werden 
+    und über eine Prozess in die verwendete Version des Kasse eingespielt werden. Änderungen an Übersetzungen auf Ebene des Translationserivce werden dann
+    durch den Neustart der Kasse übernommen. Dadurch soll der Übersetzungsprozess vollständig von dem Deployment der Kasse entkoppelt werden.
+    Damit die Übersetzungen in Abhängigkeit ihrer Version erstellt bzw. geladen werden können, ist es notwendig den Translationservice dahin gehend zu erweitern
+    das Tokens und Übersetzungen versioniert werden können. Die dafür notwendigen Änderungen sind auf Datenbankebene sowie Schnittsellen- und Fron-End-Ebene auszuführen.
   \subsection{Wirtschaftsanalyse}
-  \subsubsection{Kostenaufstellung}
-  \subsubsection{Aromatisierungsdauer}
-  \subsection{Anwendungsfälle}
+  \subsubsection{Monetare Vorteile}\label{sec:MV}%Überarbeiten
+    Nach Abschluss des Projektes werden die Übersetzungsdateien durch den Übersetzungsdienst generiert, 
+    dadruch entfällt die zeitaufwändigen Arbeit der Wartung und Pflege. 
+    Durch die benutzerfreundliche Oberfläche des Übersetzungsdienst müssen externe Übersetzer 
+    nicht mehr in die Struktur und Funktionsweise der Übersetzungsdateien eingebarietet werden. Die dadruch entstandene Zeitersparniss 
+    kann als zusätzlicher Gewinn für das Unternehmen gerechnet werden.
+  \subsubsection{Nicht-monetare Vorteile}\label{sec:notMV}%Überarbeiten
+    Als Softwarehersteller ist der Kundensupport und die Kundenzufriedenheit ein wichtiger Bestandteil der wettbewerbsfähigkeit.
+    Auch wenn mit dem Liveupdate der Übersetzungen im Kassensystem und die Versionierung der Tokens 
+    und Übersetzungen im TranslationService kann keine konkreten Gewinne berechnen lassen,
+    ergeben sich dennoch Voreile, die sich indirekt positiv auf den Unternehmensgwinn auswirken. 
+  \subsubsection{Kostenaufstellung}\label{sec:costs}%Überarbeiten
+    MATHE HIER
+  \subsubsection{Aromatisierungsdauer} %Weitermachen wenn einem was einfällt
+    Das Prohjekt beinhaltet nicht-monetare Vorteile (siehte \secref{sec:notMV}). Deswegen hat der Autor eine 
+    Aromatisierungsrechnung ohne den Faktor der N
+  \subsection{Anwendungsfälle}%Weitermachen wenn mir mehr einfällt
+    Für das Projekt wurden unterschiedliche Stakeholder bestimmt. Da es sich bei dem Projekt um ein überwiedend internes Feature handelt, wird
+    der Stakeholder "Kunde" nicht mit einbezogen.\\
+  \subsection{Komponenten}%Ausbessern
+    Im Projekt werden zwei bereits bestehende Komponenten durch ein weitere Komponente verbunden. Im \attsecref{sec:uml:komponenten} wird veranschaulicht
+    wie diese Komponenten nach Fertigstellung des Projektes miteinander kommunizieren werden. 
+    Für die Kommunikation der beiden Hauptsysteme, OktoPOS Cash und dem Translationservice, werden Hilfkomponentnen verwendent. Die neu zu entwickelnde Komponente Translationupdater
+    hat die Aufgabe, die Übersetzungen für Tokens in Abhängigkeit von Sprache und Version von dem TranslationSerivce zu laden, in das Kassenlesbare Format zu konvertieren und die 
+    bestehenden Übersetzungen zu updaten. 
+    Das bestehende Versionverwaltungssystem besitzt die Möglichkeit, WebHooks einzurichten. Der Zweck eines WebHooks kann optimal als genutzt werden, um 
+    die Änderungen an den Übersetzungsdateien der Kasse an den Translationserivce zu übertragen.
+    Der Translationservice bietet bisher schon die Möglichkeit zum Importieren und Exportieren von Tokens und Übersetzungen, allerdings nicht im gefordertetn Maße.
+    Daher stellt der TranslationSerivce neue Schnittstellen bereit mit denen die Hilfskomponenten kommunizieren können. Für eine bessere Übersicht wurden 
+    die Anpassungen an den bestehenden System farblich im Komponentendiagramm (\attsecref{sec:uml:komponenten}) hervorgehoben.
   \subsection{Lastenheft}
+    FOLGT IRGENDWANN
   \section{Entwurfsphase}
-  \subsection{Userinterface}
-  \subsection{Datenmodell}
-  \subsection{APIs}
-  \subsection{Geschäftslogik}
+    \subsection{Zielplattform}%footnode
+      Ziel des Projektes ist, wie im Punkt \secref{sec:projectdesc} beschrieben, die Kommunikation zwischen zwei bestehenden System zu ermöglichen.
+      Die Integrität des Kassencodes soll nach Angaben des Auftraggebers erhalten bleiben. Dafür ist es notwendig ein Modul zu implementieren, welches 
+      die nötigen Schritte zum Aktualisieren der Übersetzungsdateien ermöglicht.\\
+      Nach Angaben des Auftraggebers soll die Möglichkeit bestehen, zu einem späteren Zeitpunkt das Modul in den Kassencode zu integrieren. Daraus entsteht 
+      Vorgabe, das Modul auf dem gleichen Languagelevel des Kassencodes zu programmieren.\\
+      Zum aktuellen Zeitpunkt wird die Kasse über den Buildprozess Ant deployed. Basierend auf der Anforderung des Auftraggebers (LASTENHEFT PUNKT XX),
+      wird in naher Zukunft der Buildprozess auf Gradle umgestellt. Für eine erleichterte Integration des neuen Modules, soll das neue Projekt bereits den Gradle 
+      Buildprozess unterstützen.\\
+      Der Translationservice ist in der Programmiersprache PHP mit dem Languagelevel 7.3 erstellt. Es wurde bei der Entwicklung des Translationservice darauf geachtete,
+      dass der Serivce auf allen gängigen Webbrowser "FOOTNODE" funktioniert. Daher wurde für die Darstellung der Daten HTML 5.2 verwendet. Für eine saubere und ansprechende 
+      Darstellung der Daten wurde das Stylesheet von Twitter Bootstrap verwendet.\\
+      Da es sich bei den vorgegeben System um produktive Systeme handelt, die bereits aktiv genutzt werden, sind die Programmierparadigmen und Programmiersprachen vorgegeben.
+      Das Aufstellen einer Nutzwertanalyse ist daher obsolet.
+    \subsection{Architektur}\label{sec:architecture}%Überarbeiten
+      Der Transaltionserivce basiert auf dem Mode-View-Controller (MVC)-Architekturmuster. Demnach werden die zugrunde liegenden Daten in einer Datenbank gespeichert, während die View für
+      die Darstellung der Datenverantwortlich ist. Über die Controller bildet eine bidirketionale Kommunikationschicht um Daten zu manipulieren bzw. Daten anzuzeigen.
+      Durch die Entkopplung, welche durch das MVC Pattern erreicht wird, wird die Erweiter- und Wartbarkeit signifikant erleichtert.\\
+      Die Darstellung der Daten wird im Translationservice durch die Template-Engine Twig realisiert. Dabei werden die Daten über Action Klassen der Engine zu verfügung gestellt,
+      welche sie dann an die, als variabel definierten, Felder übergibt. Die Action Klassen representieren, im MVC Design Pattern, die Controller. Sie werden üblicherweise über 
+      vordefinierte Routen aufgerufen und verarbeitetn die Daten auf Grundlage der gesendeten Requests. 
+      In webbasierten Anwendungen werden üblicher weise die genutzten Daten in einer Datenbank gespeichert. Die Modelle der Daten sind als Entitäten in einer Datenbank definiert.
+      Das Object-Relation Mapping (ORM)-Framework automatisiert dabei die Aufgabe, aus definierten Objekten die korrekte DDL zu genieren und auf der Datenbank auszuführen. 
+      Die aktuell verwendeten Schnittstellen des Translationserivce sind bereits nach der RESTful Architektur designed. RESTful steht für eine zustandslose 
+      Kommunikation zwischen Client und Server. Durch Cachingfähige Daten können Client-Server-Interaktionen optimiert werden. 
+      Die neuen Schnittstellen, sollen ebenfalls nach der RESTful Architektur implementiert werden.  
+      Der Translationupdater ist ein Modul welches das Kassensystem um eine Subroutine erweitern soll. Die Subroutine beschafft Daten von einem autarkem System, verarbeitet diese 
+      und injeziert die verarbeiten Daten in ein bestehendes System. Für eine saubere Implementierung wird eine Variation des Pipes und Filter Architekturmustern angewendet. 
+      Dabei wird der Filterteil des Architekturmusters weggelassen.
+    \newpage
+      \subsection{Benutzeroberfläche}
+      %PLANLOS
+    \subsection{Datengrundlage} %PLANLOS
+      Wie in der \secref{sec:architecture} beschrieben, speichert der Translationservice seine Daten in einer MySql Datenbank. Um eine organisierte Übersicht über die bestehenden Daten
+      wurde da Datenbankschema in ein ERD übertragen. \nameref{fig:erd:na} zeigt einen groben Überblick über das bisherige Datenbankschema des Translationservice.\\
+      \begin{figure}[ht]
+        \label{fig:erd:na}
+        \caption{Ursprüngliches ERD ohne Attribute}
+      \end{figure}
+      \\Eine Detaillierte Übersicht mit Attributen ist in der \figsecref{abb:erdIs1} zu finden. 
+      Die REST Schnittstellen im Translaionservice verwenden das für REST typische Format Json um Daten mit Clients auszutauschen. Die neu zu entwicklenden Schnittstellen 
+      sollen sich der bestehenden Struktur anpassen und das selbe Format für Requests und Responses verwenden.
+      Als Datengrundlage für die Übersetzungsdateien nutzt das Kassensystem Dateien im Propertyformat. Der Translationupdater hat somit auch die Aufgabe, die empfangenen
+      Daten in das korrekte Format zu konvertieren.
+  \subsection{RESTFul APIs}
+      Im Punkt \nameref{sec:analyse:current:ts} wurde bereits beschrieben, dass die Schnittstellen nach der REST Architektur desigend wurden. Neue Schnittstellen werden 
+      ebenfalls nach der RESTful Architektur desigend.\\
+      Im Gegensatz zu den ursprünglichen undokumentierten Schnittstellen, hat der Auftraggeber darum gebten die neuen Schnittstellen zu dokumentieren. \\
+      Da der Transaltionservice nach vollendung dieses Projektes von mehreren Abteilungen genutzt wird ist eine vollständige Dokumentation der neuen Schnittstellen notwendig. 
+      Als Dokumentationswerkzeug für RESTful APIs wird in diesem Projekt Swagger verwendet. Ein Ausschnitt der, im Planungsmeeting entstanden, Schnittstellen ist im \attsecref{sec:swa:ts} zu finden.
+      Die neuen Schnittstellen wurden in einem Planungsmeeting mit zuständigen Projectowner des Translationsercive geplant.
   \subsection{Testcases}
+      Das gesamte Projekt wurde nach dem Prinzip Test-driven entwickelt. Das bedeutet, dass vor der Implementierung Tests geschrieben werden. Die Tests werden auf Grund der fehlenden 
+      Funktionalität zu beginn fehlschlagen. 
+      Test-Driven hat den Vorteil, dass der Entwickler während der Implementierung von Funktionalitäten ein direktes Feedback bekommt, ob das gewünschte Ergebnis erreicht wurde bzw.
+      diverse Feherfälle abgedeckt wurden.\\
+      Damit Tests die Datenbankzugriffe beinhalten, nicht beeinflusst werden können, werden entweder Mockups für Datenbanken erstellt oder es wird für den Test
+      auf einer leeren Testdatenbank ausgeführt. Um eine leere Testdatenbank zu garantieren, werden vor und nach jedem Test die gesamte Datenbank bereinigt. 
+      Für den Test werden ausschließlich im Test definierte Daten verwendet.
+      Eine Liste von getesteten Funktionen ist im \attsecref{sec:test:ts} und \attsecref{sec:test:tu} zu finden.
+      Die Tests für den Translationsercive werden mit dem PHP Framework PHPUnit erstellt und regelmäßig ausgeführt. 
+      Der Translationupdater nutzt das Testframework JUnit und führt seine Tests über das Gradle Buildscript während des Buildprozesses aus.
   \subsection{Pflichtenheft}
+      ANHANG
   \section{Implementierungsphase}
+  \subsection{Iterationsphase}
+      Für eine strukturierte Implementierung, wurde ein Iterationsplan erstellt. Dieser gibt dem Entwickler eine Überblick über die erfoderlichen Schritte
+      zur Fertiggestellung der neuen Software. Der Itarationplan steht im \attsecref{sec:iterationplan} zur Verfügung. Das Erstellen der Tests ist kein 
+      Teil der Implementierungsphase sondern ist noch Teil des Entwurfes.
   \subsection{Translationservice}
-  \subsubsection{Erweiterung der bestehenen Datengrundlage}
-  \subsubsection{Implemetierung der REST Api}
-  \subsection{Translationloader}
-  \subsubsection{Geschäftslogik}
-  \subsubsection{Userinterface}
-  \subsubsection{Batch Script Extension}
-  \subsubsection{Webhook}
+  \subsubsection{Erweiterung der bestehenden Datenstruktur}
+    Als Grundlage für die weiterführende Programmierung wurde zu Beginn der Implementierung mit der Erweitung der Datenstruktur begonnen.  
+  \subsubsection{Erweitern der Schnittstellen}
+  \subsubsection{Anpassen der Geschäftslogik}
+  \subsubsection{Anpassen der Benutzeroberfläche}
+  \subsection{Translationupdater}
+  \subsubsection{Implementierung der Geschäftslogik}
   \section{Abnahme- und Einführungsphase}
   \subsection{Abnahme durch den Fachbereich}
   \subsection{Deployment}
@@ -173,9 +328,41 @@
   \subsection{Gantt-Chart}\label{sec:GanttChart}
     Gantt Chart will follow!
     \newpage
-  
-    
+  \subsection{Datenbankmodelle}
+  \subsubsection{Ursprüngliche Datenbankstruktur}\label{sec:isErd}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{ERD_TranslationService_IST-Analyse.png}
+    \caption{ERD im IST Zustand}
+  \end{figure}
+  \begin{figure}[ht]
+    \label{abb:erdIs1}
+    \centering
+    \includegraphics[width=\textwidth]{ERD_TranslationService_IST-Analyse.png}
+    \caption{ERD im IST Zustand}
+  \end{figure}
+  \newpage
+  \subsection{UML Anwendungsfalldiagramm}\label{sec:uml:aw:new}
+  \subsubsection{OkotoPOS Cash}\label{sec:uml:aw:cash}
+  \subsubsection{Translationservice}\label{sec:uml:aw:ts}
+  \subsection{Komponentendiagramm}\label{sec:uml:komponenten}
   \subsection{Schnittstelledokumentation}
-    \label{interfaceDocumentation}
+    \label{sec:swa:ts}
   Swagger
+  \subsection{Resourcen und Technologien}\label{sec:resources}
+    \begin{table}[ht]
+      \centering
+      \begin{tabular}{| l | l |}
+        1 & 2 \\
+        \hline
+        3 & 4\\
+        \hline
+      \end{tabular}
+      \caption{Genutzte Resourcen}
+    \end{table}
+  \subsection{Testcases Translationservice}\label{sec:test:ts}
+  \subsection{Testcases Translationservice}\label{sec:test:tu}
+  \subsection{Iternationsplan}\label{sec:iterationplan}
+  \section{Listings}
+
 \end{document}

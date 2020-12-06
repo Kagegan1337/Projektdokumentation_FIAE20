@@ -36,10 +36,10 @@
 \BOOKMARK [2][-]{subsection.6.2}{Translationservice}{section.6}% 36
 \BOOKMARK [3][-]{subsubsection.6.2.1}{Erweiterung der bestehenden Datenstruktur}{subsection.6.2}% 37
 \BOOKMARK [3][-]{subsubsection.6.2.2}{Erweitern der Schnittstellen}{subsection.6.2}% 38
-\BOOKMARK [3][-]{subsubsection.6.2.3}{Anpassen der Gesch\344ftslogik}{subsection.6.2}% 39
-\BOOKMARK [3][-]{subsubsection.6.2.4}{Anpassen der Benutzeroberfl\344che}{subsection.6.2}% 40
-\BOOKMARK [2][-]{subsection.6.3}{Translationupdater}{section.6}% 41
-\BOOKMARK [3][-]{subsubsection.6.3.1}{Implementierung der Gesch\344ftslogik}{subsection.6.3}% 42
+\BOOKMARK [2][-]{subsection.6.3}{Gesch\344ftslogik}{section.6}% 39
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Anpassen der Benutzeroberfl\344che}{subsection.6.3}% 40
+\BOOKMARK [2][-]{subsection.6.4}{Translationupdater}{section.6}% 41
+\BOOKMARK [3][-]{subsubsection.6.4.1}{Implementierung der Gesch\344ftslogik}{subsection.6.4}% 42
 \BOOKMARK [1][-]{section.7}{Abnahme- und Einf\374hrungsphase}{}% 43
 \BOOKMARK [2][-]{subsection.7.1}{Abnahme durch den Fachbereich}{section.7}% 44
 \BOOKMARK [2][-]{subsection.7.2}{Deployment}{section.7}% 45
@@ -51,14 +51,19 @@
 \BOOKMARK [2][-]{subsection.1.1}{Detaillierte Zeitplanung}{section.1}% 51
 \BOOKMARK [2][-]{subsection.1.2}{Gantt-Chart}{section.1}% 52
 \BOOKMARK [2][-]{subsection.1.3}{Datenbankmodelle}{section.1}% 53
-\BOOKMARK [3][-]{subsubsection.1.3.1}{Urspr\374ngliche Datenbankstruktur}{subsection.1.3}% 54
-\BOOKMARK [2][-]{subsection.1.4}{UML Anwendungsfalldiagramm}{section.1}% 55
-\BOOKMARK [3][-]{subsubsection.1.4.1}{OkotoPOS Cash}{subsection.1.4}% 56
-\BOOKMARK [3][-]{subsubsection.1.4.2}{Translationservice}{subsection.1.4}% 57
-\BOOKMARK [2][-]{subsection.1.5}{Komponentendiagramm}{section.1}% 58
-\BOOKMARK [2][-]{subsection.1.6}{Schnittstelledokumentation}{section.1}% 59
-\BOOKMARK [2][-]{subsection.1.7}{Resourcen und Technologien}{section.1}% 60
-\BOOKMARK [2][-]{subsection.1.8}{Testcases Translationservice}{section.1}% 61
-\BOOKMARK [2][-]{subsection.1.9}{Testcases Translationservice}{section.1}% 62
-\BOOKMARK [2][-]{subsection.1.10}{Iternationsplan}{section.1}% 63
-\BOOKMARK [1][-]{section.2}{Listings}{}% 64
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Datenbankstruktur Urfassung}{subsection.1.3}% 54
+\BOOKMARK [3][-]{subsubsection.1.3.2}{Finale Datenbankstruktur}{subsection.1.3}% 55
+\BOOKMARK [2][-]{subsection.1.4}{UML Anwendungsfalldiagramm}{section.1}% 56
+\BOOKMARK [3][-]{subsubsection.1.4.1}{OkotoPOS Cash}{subsection.1.4}% 57
+\BOOKMARK [3][-]{subsubsection.1.4.2}{Translationservice}{subsection.1.4}% 58
+\BOOKMARK [2][-]{subsection.1.5}{Komponentendiagramm}{section.1}% 59
+\BOOKMARK [2][-]{subsection.1.6}{Schnittstelledokumentation}{section.1}% 60
+\BOOKMARK [2][-]{subsection.1.7}{Resourcen und Technologien}{section.1}% 61
+\BOOKMARK [2][-]{subsection.1.8}{Testcases Translationservice}{section.1}% 62
+\BOOKMARK [2][-]{subsection.1.9}{Testcases Translationservice}{section.1}% 63
+\BOOKMARK [2][-]{subsection.1.10}{Iternationsplan}{section.1}% 64
+\BOOKMARK [1][-]{section.2}{Listings}{}% 65
+\BOOKMARK [2][-]{subsection.2.1}{Many-To-Many Annotation}{section.2}% 66
+\BOOKMARK [2][-]{subsection.2.2}{Routing}{section.2}% 67
+\BOOKMARK [2][-]{subsection.2.3}{Beispielimplementierung einer GET-Route}{section.2}% 68
+\BOOKMARK [2][-]{subsection.2.4}{Beispielimplementierung einer POST-Route}{section.2}% 69

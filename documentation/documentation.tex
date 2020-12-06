@@ -18,6 +18,7 @@
 %Packages to use sourcecode in this document
 \usepackage{listings}
 \usepackage{caption}
+
 %Package to use colors in the documents. For example \rowcolor
 \usepackage{color, colortbl}
 
@@ -44,13 +45,16 @@
 %Define Codeblockfont
 %Define imagepath
 \graphicspath{{src/img/}}
+%Define Listings apperiance
+\lstset{basicstyle=\ttfamily}
+%Overwrite naming for lists
 \renewcommand{\listfigurename}{Abbildungsverzeichnis}
 \renewcommand{\listtablename}{Tabellenverzeichnis}
 \renewcommand{\contentsname}{Inhaltsverzeichnis}
-\renewcommand{\lstlistlistingname}{Listingsverzeichnis}
-
+%\renewcommand{\lstlistlistingname}{Listingsverzeichnis}
 \renewcommand{\tablename}{Tabelle}
 \renewcommand{\figurename}{Abbildung}
+% Create new commands for work with refs.
 \newcommand{\tabsecref}[1]{\hyperref[{#1}]{Tabelle \thesubsection. \nameref*{#1}}}
 \newcommand{\figsecref}[1]{\hyperref[{#1}]{Abbildung \thesubsection. \nameref*{#1}}}
 \newcommand{\attsecref}[1]{\hyperref[{#1}]{Anhang \thesubsection. \nameref*{#1}}}
@@ -194,7 +198,7 @@
     Bisher ist es allerdings nicht möglich eine Übersetzung zu versionieren. Das bedeutet, das die Änderungen an den Übersetzungen final sind und nicht 
     mehr auf alte Übersetzungen zurückgeschlossen werden kann.
     Die Daten des Übersetzungsdienst sind in einer MySql Datenbank gespeichert. In der \figsecref{abb:erdIs1} ist eine grobe Übersicht über das Datenbankmodel aufgezeigt. 
-    Das vollständige ERD ist im \attsecref{sec:isErd} zu finden.
+    Das vollständige ERD ist im \attsecref{sec:erd:is} zu finden.
   
   \subsection{Soll-Analyse}%Überarbeiten
     Druch die Anbindung des Kassensystems an den Transaltionservice soll die Pflege und Wartung nahezu automatisiert werden. 
@@ -308,9 +312,81 @@
       Teil der Implementierungsphase sondern ist noch Teil des Entwurfes.
   \subsection{Translationservice}
   \subsubsection{Erweiterung der bestehenden Datenstruktur}
-    Als Grundlage für die weiterführende Programmierung wurde zu Beginn der Implementierung mit der Erweitung der Datenstruktur begonnen.  
-  \subsubsection{Erweitern der Schnittstellen}
-  \subsubsection{Anpassen der Geschäftslogik}
+    Als Grundlage für die weiterführende Programmierung wurde zu Beginn der Implementierung mit der Erweitung der Datenstruktur begonnen. 
+    Um die geforderte Versionierung im Translationservice abbilden zu können, musste eine neue Entität in das bestehende Datenbankschema eingebunden werden.
+    Das ORM Mapping Tool Doctrine kann über Annotations Klassen in ein Datenbankschema überführen.\\
+    Dabei werden für Klassen, die in der Datenbank eine Entität representieren, mit der Annotation
+    \begin{lstlisting}[caption={Annotation für eine Entität},captionpos=b]
+      @ORM\Table (name="version")
+    \end{lstlisting}
+    wird die Klasse Version.php für Doctrine als Entität markiert.\\
+    Für ein Attribut einer Tabelle wird ein Attribut der PHP Klasse mit der Annotation 
+    \begin{lstlisting}[caption={Annotation für ein Attribut},captionpos=b]
+      @ORM\Column (type="string", nullable=false)
+    \end{lstlisting} 
+    für Doctrine gekennzeichnet. Dabei können neben dem Datentyp auch weitere Paramter wie zum Beispiel \lstinline{nullable=false} gesetzt werden. \lstinline{nullable} sagt aus, das der Wert in der Spalte 
+    nicht null sein darf.\\
+    Aus dem finalen ERD (\ref{sec:erd:final}) sind neben der neuen Basisentität noch Relationstabellen Token\_Version und Translation\_Version zu erkennen. Relationstabellen werden immer dann von Doctrine generiert, wenn
+    zwei Tabellen in einer Many-To-Many Beziehung stehen. Relationstabellen werden verwendet um das Datenbankschema in der dirtten Normalform zu "bringen". In der objeketorientierten Porgrammierung werden Many-To-Many Beziehungen über Listen abgeblidet. Dabei haben die beiden
+    Objekte eine Liste von Instanzen des jeweiligen anderen Objektes als Attribut.\\
+    Damit das verwendente ORM Tool die Relationstabellen für die betroffenen Tabellen erstellen kann, werden weitere Annotations benötigt. Listing \ref{sec:lst:mtmA} zeigt an dem Beispiel Token\_Version die Umsetzung einer M:N Beziehung über Doctrine Annotations.
+  \subsubsection{Erweitern der Schnittstellen} \label{sec:impl:api}
+    Anhand der Schnittstellendefinition \ref{sec:swa:ts} wurden die neuen Schnittstellen im Translationservice implementiert. Der Translationservice wurde auf Basis des Slim Frameworks aufgebaut.
+    Über das PHP-File \lstinline{Bootstrap.php} werden die Routen der Klasse \lstinline{TranslationServiceAppBuilder.php} werden die Routen in der \lstinline{TranslationServiceApp} registriert.
+    Neue Routen werden anhand eine simplen Schemas als Route für die App definiert. Die Definition der Routen innerhalb des Slim Frameworks ist wie folgt aufgebaut:
+    \begin{lstlisting}[caption={Beispielroute},label=lst:rt:ex, captionpos=b]
+      $app->post('/api/v1/{foo}/list',Foo::class)
+    \end{lstlisting}
+    \begin{table}[ht]
+      \centering
+      \begin{tabular}{l  l }
+        \hline
+        \rowcolor{carolinablue}
+        Befehl & Erläuterung \\
+        \hline
+        \$app & Wrapper Klasse um die verwendeten Container der Applikation.\\
+        \rowcolor{lightgray}
+        post & Definition des HTTP Request für die Route.
+                          (GET, POST, PUT usw.)\\
+        \'/api/\{foo\}/list\' & Definition der Route. Variable Parameter werden in \{\} dargestellt.\\
+        \rowcolor{lightgray}
+        Foo::class & Die genutzte Action Klasse die aufgerufen werden soll.
+      \end{tabular}
+      \caption{Übersicht Routenregistrierung in Slim}
+      \label{bzz}
+    \end{table}
+    Die Tabelle \ref{bzz} erklärt die Bestandteile der Routenregistrierung aus \ref{lst:rt:ex}.
+    \newpage 
+    Im Listing \ref{sec:lst:routes} wird die Umsetzung einer Routenregistrierung anhand von zwei, im Rahmen des Projektes erstellten, Routen deutlich gemacht.\\
+    Für die neuen Routen wurden dementsprechen neue Actionklassen entwickelt die die jeweiligen Anforderung an die Routen erfüllt. 
+    Über das verwendente PHP Framework \begin{lstlisting}
+      "php-di/slim-bridge": "^1.1.2"
+    \end{lstlisting}
+    können Abhängigkeiten in Container abgelegt werden und per Dependency Injection in den verschiedenen Klassen genutzt werden. 
+    In den meisten Fällen haben die Actionklassen Abhängigkeiten zu den verschiedenen Repositoires. 
+    Die Abhängigkeiten werden in den Konstruktoren der Actionklasse definiert. Durch die Dependency Injection
+    werden bei Aufruf die richtigen Abhängigkeit geladen. Dependency Injection hat den weiteren Vorteil, dass zur Laufzeit auf der gleichen
+    Instanz eines Objektes gearbeitet wird.\\
+    Bei dem Aufruf einer Klasse wird die Funktion \lstinline{__invoke} mit den Parameter \lstinline{Slim/Request} und \lstinline{Slim/Response} aufgerufen. 
+    Innerhalb der \lstinline{__invoke} wird die eigentlich Logik der Actionklasse ausgeführt. 
+    Über den Parameter \lstinline{$request} ist eine Refferenz auf das mitgesendete Requestobjekt. Neben den grundlegenden Informationen eines HTTP-Requests 
+    kann auch weitere Routenparameter (siehe Beispielroute Listing \ref{lst:rt:ex} \{foo\}) und einen Requestbody zugegriffen werden. Der Requestbody muss generell 
+    dann gesetzt werden, wenn es sich um einen POST-Request handelt.\\  
+    Der Parameter \lstinline{Response} ist eine Refferenz auf das Responseobjekt des Routenaufrufes. Dieser wird so manipuliert, dass die Applikation die korrekten Informationen an den aufrufenden Klienten zurückgibt. 
+    Für den Response stehen mehrere Möglichkeiten zur Verfügung um die Informationen in ein eindeutig lesbares und serealisierbares Ergebnis zu "verpacken". 
+    Basierend auf der RESTful-Architektur werden Informationen bezüglich des Responses in einem Json an den Klienten zurückgegeben. Neben der Information ob 
+    die angeforderte Operation erfolgreich (success) werden auch eine Message und optional auch noch weitere Daten an den Klienten zurückgegeben.
+    Da es sich um eine Refferenz handelt, muss das Responseobjekt nicht neu erzeugt werden, es werden neue Attribute hinzugefügt oder geändert.\\
+    Der Ablauf von \lstinline{__invoke} Funktionen der Actionklasse wird in dem Kapitel Geschäftslogik \ref{sec:impl:bl} erklärt. 
+    Während des Projektes wurde alle im Anhang \ref{sec:swa:ts} definierten Routen nach dem in diesem Kapitel beschriebenen Prinzip implementiert.   
+  \subsection{Geschäftslogik}\label{sec:impl:bl}
+    In dem Kapitel \ref{sec:impl:api} Erweiterung der Schnittstellen wurde beschrieben, wie über die einzelnen Routen mit dem Slim-Framework angelegt und 
+    mit einer Geschäftslogik verknüpft werden. Diese Kapitel beschreibt den Umgang mit den mitgesendeten Information und der generellen Routine die der Bearbeiter
+    nutzt um vorhersehbare Fehler abzufangen. Listing \ref{lst:impl:bl:GET} und Listing \ref{lst:impl:bl:POST} zeigen zwei unterschiedlich Implementierungen 
+    der \lstinline{__invoke}-Funktionen die nach den Vorgaben aus der Schnittstellendokumentation \ref{sec:swa:ts} und Testvorgaben \ref{sec:test:ts} verhalten.
+    Jeder \lstinline{__invoke}-Funktion beginnt damit die mitgesendeten Daten und Routenparameter in geeigneten variablen zu überführen. Um zu verhindern, dass mit 
+    fehlenden, falschen oder kaputten Daten gearbeitet wird, werden vor zuerst die definierten Fehlerfälle abgefangen und mit dem, in der Schnittstellendokumentation \ref{sec:swa:ts} defineirten, Response
+    an die Klienten zurückgegeben. 
   \subsubsection{Anpassen der Benutzeroberfläche}
   \subsection{Translationupdater}
   \subsubsection{Implementierung der Geschäftslogik}
@@ -329,17 +405,19 @@
     Gantt Chart will follow!
     \newpage
   \subsection{Datenbankmodelle}
-  \subsubsection{Ursprüngliche Datenbankstruktur}\label{sec:isErd}
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{ERD_TranslationService_IST-Analyse.png}
-    \caption{ERD im IST Zustand}
-  \end{figure}
+  \subsubsection{Datenbankstruktur Urfassung}\label{sec:erd:is}
   \begin{figure}[ht]
     \label{abb:erdIs1}
     \centering
     \includegraphics[width=\textwidth]{ERD_TranslationService_IST-Analyse.png}
     \caption{ERD im IST Zustand}
+  \end{figure}
+  \subsubsection{Finale Datenbankstruktur}\label{sec:erd:final}
+  \begin{figure}[ht]
+    \label{abb:erd:final}
+    \centering
+    \includegraphics[width=\textwidth]{ERD_TranslationService_IST-Analyse.png}
+    \caption{ERD im Soll Zustand}
   \end{figure}
   \newpage
   \subsection{UML Anwendungsfalldiagramm}\label{sec:uml:aw:new}
@@ -364,5 +442,44 @@
   \subsection{Testcases Translationservice}\label{sec:test:tu}
   \subsection{Iternationsplan}\label{sec:iterationplan}
   \section{Listings}
-
+  \subsection{Many-To-Many Annotation}\label{sec:lst:mtmA}
+    Token.php
+  \begin{lstlisting}
+    /**
+     * @var Version[]|ArrayCollection
+     * @ORM\ManyToMany (targetEntity="OktoCareer\TranslationService\
+        Version\Version", inversedBy="tokens")
+     * @ORM\JoinTable (name="token_version",
+     *     joinColumns = {
+     *      @ORM\JoinColumn (name="token_id", referencedColumnName="id")
+     * },
+     *     inverseJoinColumns={
+     *      @ORM\JoinColumn (name="version_id", referencedColumnName="id")
+     * }
+     *     )
+     */
+     private $version;
+  \end{lstlisting}
+  Version.php
+  \begin{lstlisting}
+    /**
+     * @var Token[]|ArrayCollection
+     * @ORM\ManyToMany (targetEntity="OktoCareer\TranslationService\
+        Token\Token",mappedBy="version")
+     */
+     private $tokens;
+  \end{lstlisting}
+  \subsection{Routing}\label{sec:lst:routes}
+  HTTP GET Route:
+  \begin{lstlisting}
+    $app->get('/api/v1/version/{version}/translations/{language}'
+      ,ExportTranslationAction::class);
+  \end{lstlisting}
+  HTTP POST Route:
+  \begin{lstlisting}
+    $app->post('/api/v1/version/{version}/diff/translations/{language}'
+      ,CreateTranslationDiff::class);
+  \end{lstlisting}
+  \subsection{Beispielimplementierung einer GET-Route}\label{lst:impl:bl:GET}
+  \subsection{Beispielimplementierung einer POST-Route}\label{lst:impl:bl:POST}
 \end{document}

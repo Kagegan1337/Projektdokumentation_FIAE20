@@ -21,6 +21,7 @@
 
 %Package to use colors in the documents. For example \rowcolor
 \usepackage{color, colortbl}
+\usepackage{multirow}
 
 
 %Define Header
@@ -271,8 +272,9 @@
       und injeziert die verarbeiten Daten in ein bestehendes System. Für eine saubere Implementierung wird eine Variation des Pipes und Filter Architekturmustern angewendet. 
       Dabei wird der Filterteil des Architekturmusters weggelassen.
     \newpage
-      \subsection{Benutzeroberfläche}
-      %PLANLOS
+    \subsection{Benutzeroberfläche}\label{sec:dr:ui}
+    Änderungen an der Benutzeroberfläche des Translationserivce werden über die Template-Engine Twig durchgeführt. Grundsätzlich wird die Oberfläche durch die Auszeichnungssprache HTML beschrieben. Twig bietet die Möglichkeit
+    HTML Formulare durch algorithmische Grundstrukturen zu erweiteren. Dabei ist es möglich Iterationen und bedingte Anweisungen direkt im HTML Formular einzubinden.
     \subsection{Datengrundlage} %PLANLOS
       Wie in der \secref{sec:architecture} beschrieben, speichert der Translationservice seine Daten in einer MySql Datenbank. Um eine organisierte Übersicht über die bestehenden Daten
       wurde da Datenbankschema in ein ERD übertragen. \nameref{fig:erd:na} zeigt einen groben Überblick über das bisherige Datenbankschema des Translationservice.\\
@@ -310,8 +312,8 @@
       Für eine strukturierte Implementierung, wurde ein Iterationsplan erstellt. Dieser gibt dem Entwickler eine Überblick über die erfoderlichen Schritte
       zur Fertiggestellung der neuen Software. Der Itarationplan steht im \attsecref{sec:iterationplan} zur Verfügung. Das Erstellen der Tests ist kein 
       Teil der Implementierungsphase sondern ist noch Teil des Entwurfes.
-  \subsection{Translationservice}
-  \subsubsection{Erweiterung der bestehenden Datenstruktur}
+  \subsection{Translationservice}\label{sec:impl:ts}
+  \subsubsection{Erweiterung der bestehenden Datenstruktur}\label{sec:impl:db}
     Als Grundlage für die weiterführende Programmierung wurde zu Beginn der Implementierung mit der Erweitung der Datenstruktur begonnen. 
     Um die geforderte Versionierung im Translationservice abbilden zu können, musste eine neue Entität in das bestehende Datenbankschema eingebunden werden.
     Das ORM Mapping Tool Doctrine kann über Annotations Klassen in ein Datenbankschema überführen.\\
@@ -380,24 +382,111 @@
     Der Ablauf von \lstinline{__invoke} Funktionen der Actionklasse wird in dem Kapitel Geschäftslogik \ref{sec:impl:bl} erklärt. 
     Während des Projektes wurde alle im Anhang \ref{sec:swa:ts} definierten Routen nach dem in diesem Kapitel beschriebenen Prinzip implementiert.   
   \subsection{Geschäftslogik}\label{sec:impl:bl}
-    In dem Kapitel \ref{sec:impl:api} Erweiterung der Schnittstellen wurde beschrieben, wie über die einzelnen Routen mit dem Slim-Framework angelegt und 
-    mit einer Geschäftslogik verknüpft werden. Diese Kapitel beschreibt den Umgang mit den mitgesendeten Information und der generellen Routine die der Bearbeiter
-    nutzt um vorhersehbare Fehler abzufangen. Listing \ref{lst:impl:bl:GET} und Listing \ref{lst:impl:bl:POST} zeigen zwei unterschiedlich Implementierungen 
-    der \lstinline{__invoke}-Funktionen die nach den Vorgaben aus der Schnittstellendokumentation \ref{sec:swa:ts} und Testvorgaben \ref{sec:test:ts} verhalten.
-    Jeder \lstinline{__invoke}-Funktion beginnt damit die mitgesendeten Daten und Routenparameter in geeigneten variablen zu überführen. Um zu verhindern, dass mit 
-    fehlenden, falschen oder kaputten Daten gearbeitet wird, werden vor zuerst die definierten Fehlerfälle abgefangen und mit dem, in der Schnittstellendokumentation \ref{sec:swa:ts} defineirten, Response
-    an die Klienten zurückgegeben. 
+    In dem Kapitel \ref{sec:impl:api} Erweiterung der Schnittstellen wurde beschrieben, wie die einzelnen Routen mit dem Slim-Framework angelegt und 
+    mit einer Geschäftslogik verknüpft werden. Diese Kapitel beschreibt den Umgang mit den mitgesendeten Daten und der generellen Routine die der Bearbeiter
+    nutzt um vorhersehbare Fehler abzufangen und das geforderte Ergbniss erreicht.\\ 
+    Wie in Kapitel \ref{sec:impl:api} beschrieben, hat jede Route genau eine Actionklasse, alternativ auch Controller gennant, die wiederrum genau eine \lstinline{__invoke}-Funktion besitzt. Listing \ref{lst:impl:bl:GET} und Listing \ref{lst:impl:bl:POST} 
+    zeigen zwei unterschiedlich Implementierungen der \lstinline{__invoke}-Funktionen aus dem Kapitel \ref{sec:impl:api} die sich nach den Vorgaben der Schnittstellendokumentation \ref{sec:swa:ts} und Testvorgaben aus dem Kapitel \ref{sec:test:ts} verhalten.
+    Eine \lstinline{__invoke}-Funktion beginnt damit die mitgesendeten Daten und Routenparameter in geeigneten variablen zu überführen. Um zu verhindern, dass mit 
+    fehlenden, falschen oder kaputten Daten gearbeitet wird, werden vor zuerst die, für die Schnittstelle definierten, Fehlerfälle abgefangen und mit dem, in der Schnittstellendokumentation \ref{sec:swa:ts} definierten, Response
+    an die Klienten zurückgegeben.\\
+    %AB HIER NOCH MAL NACHDENKEN
+    Nach Ausschluss aller möglichen Fehlerfälle, können die validen Daten verarbeitet werden. Die Erweiterung des Translationservice beinhaltet drei Arten von Schnittstellen - Hinzufügen, Ändern und Abfragen von Daten.
+    
   \subsubsection{Anpassen der Benutzeroberfläche}
+    In Kapitel \ref{sec:dr:ui} wird der grundlegende Aufbau der Benutzeroberfläche des Translationservice erläutert. Die Anforderungen des Auftraggebers hinsichtlich der 
+    Erweiterungen der Benutzeroberfläche beschränken sich auf einen weiteren Filter, der die Translation und Tokenübersicht hinsichtlich ihrer Version sortiert.
+    Dabei hat sich der Projektbearbeiter an den bestehende Style der Benutzeroberfläche gehalten. Im Anhang \ref{sec:impl:ui} ist ein Vorher-Nachher-Vergleich zu sehen.
+    Für den neuen Filter wurde ein neuer Dropdown-Button an das bestehende Filtermenu angefügt. Das Dropdown besteht aus den einzelenen Versionen die bereits im System angelegt wurden.
+    Die Daten werden dem Front-End über die Twig-Engine bereitgestellt. Der Klick auf ein Dropdown-Item löst die % Bearbeiten wenn wieder fit
   \subsection{Translationupdater}
-  \subsubsection{Implementierung der Geschäftslogik}
+    Der zweite Tei des Projektes ist der Translationupdater. Der Translationupdater ist ein Dienst zum aktualisieren der Übersetzungsdateien der Kasse. 
+    Die Routine für den Translationupdater besteht aus drei Teilen - Beschaffen, verarbeiten, injezieren.
+    Da es sich um einen Dienst für das Kassensystem handelt, sollen die in der Tabelle \ref{tab:impl:tu:config} aufgezählten Teile des Dienstes konfigurierbar sein.
+    \begin{table}
+      \centering
+      \begin{tabular}{l l}
+        \hline
+        \rowcolor{carolinablue}
+        Parameter & Erläuterung \\
+        \hline
+        baseUrl & Bestimmt die URL über die der Translationserivce erreichbar ist\\
+        \rowcolor{lightgray}
+        languages & Eine Liste von Sprachen die aktualisiert werden sollen\\
+        verseion & Gibt die Version der Übersetzungen an
+      \end{tabular}
+      \caption{Konfigurationsparameter}
+      \label{tab:impl:tu:config}
+    \end{table} 
+    Die Konfiguration des Translationupdater wird über die Klasse \lstinline{SystemConfig.java} abgeblidet. Diese lädt die einzelen Properties aus der 
+    \lstinline{configuration.ini} (siehe Listing \ref{lst:impl:ul:config}) und überführt die Werte der Parameter in Attribute der Klasse. Über eine Instanz
+    der \lstinline{SystemConfig.java} können via \lstinline{Getter}-Methoden auf die einzelnen Werte zugegriffen werden. Da es sich bei der Konfiguration um eine 
+    eindeutige, zur Laufzeit unverändere Klasse handelt, wurde die \lstinline{SystemConfig.java} als Singelton-Pattern implementiert. Die Singeltonimplementation stellt sicher, dass 
+    von einer Klasse genau ein Objekt erzeugt wird. Da eine Konfiguration normalerweise an verschiedene Stellen im Code verwendent wird, kann auch der Vorteil der globale Erreichbarkeit 
+    eines Singelton genutzt werden. Listing \ref{sec:lst:singleton} zeigt die notwendigen Elemente damit es sich bei der \lstinline{SystemConfig.java} um eine Singleton-Implementierung handelt.\\
+    Als weitere Utility wurde das \lstinline{Printer.java} Interface geschaffen. In der Tabelle \ref{tab:impl:tu:output} werden die bereitgestellten Methoden beschrieben. Die unterschiedlichen Methoden sollen
+    die Möglichkeit bieten, die Dringlichkeit der Message zu definieren.\\
+    \begin{table}[ht]
+      \centering
+      \begin{tabular}{l l}
+        \hline
+        \rowcolor{carolinablue}
+        Signatur & Beschreibung \\
+        \hline
+        \multirow{2}{*}{printProgressMessage(int progress, int max, String toWrite)} & Gibt den aktuellen Progress \\ & inklusive einer Nachricht aus\\
+        \rowcolor{lightgray}
+        print(String message) & Gibt Nachricht aus.\\
+        printError(String error) & Gibt einen Error aus.\\
+        \rowcolor{lightgray}
+        printWarning(String) & Gibt eine Warnung aus.
+      \end{tabular}
+      \caption{Printer Interface}
+      \label{tab:impl:tu:output}
+    \end{table}
+    Eine konkrete Implementierung des Interfaces \lstinline{Printer.java} ist die Klasse \lstinline{ConsolePrinter.java}. Der \lstinline{ConsolePriner} soll die Nachrichten über
+    die Kommandozeile an den Nutzer weitergeben. Durch das Interface \lstinline{Printer.java} besteht die Möglichkeiten zu einem anderen Zeitpunkt weitere Ausgabeformen zuzulassen.
+    \newpage
+    Der erste Schritt der eigentlichen Routine, ist die Beschaffung der geforderten Daten. Der Translationservice bietet dafür die neue Schnittstelle (siehe Listing \ref{lst:rt:tr})
+    \begin{center}
+      \begin{lstlisting}[caption={Export Translations}, captionpos=b, label=lst:rt:tr]
+        '/api/v1/version/{version}/translations/{language}
+      \end{lstlisting}
+    \end{center}
+    Die Schnittstelle erwartet die Parameter \lstinline{version} und \lstinline{language}. Für den Parameter \lstinline{version} ist der Wert aus der \lstinline{SystemConfig.java} zu verwenden.
+    Die Konfiguration ermöglicht es, Übersetzungsdateien in mehreren innerhalb eines Programmaufrufes zu aktualisieren. Das Nassi-Shneiderman-Diagramm im Anhang \ref{sec:impl:algo:load} beschreibt die Ablauf zur Beschaffung der Daten in Abhängigkeit der Version und der 
+    verwendenten Sprachen. 
+    Der notwendige HTTP-GET-Request wird über die externe Java Library \lstinline{org.apache.httpcomponents} erstellt und ausgeführt. 
+    Der Methodenaufruf \lstinline{CloseableHttpClient::execute} gibt ein Responseobjekt zurück, mit dem die Antwort des Translationservice ausgelesen werden kann.
+    Die Schnittstellendokumentation \ref{sec:swa:ts} gibt an, beschreibt den Response bei einer erfolgreichen Anfrage. Mit der externen Library \lstinline{com.google.gson} werden die Arrayelmente des
+    json in ein Array mit dem Elmenttyp \lstinline{TransferObject} überführt. Zur weitern Verwendung der Daten, wird das Array in eine ArryList umgewandelt und mit dem Sprachenkürzel als Key in einer HashMap hinterlegt.\\
+    In der nächsten Instanz der Routine, werden die bereitgestellten Daten in das property-schema konvertiert und temporär als Datei im Dateisystem abgelegt. 
+    Dabei fällt die Informationen über die Sprache aus dem TransferObject weg. 
+    In der letzten Instanz werden die neuen Übersetzungsdatein in die .jar der Kassensoftware injeziert. Der Schematische Aufbau der Kassensoftware unterliegt laut der Betriebsordnung der OktoPOS Solutions GmbH
+    der Geheimhaltung. Daher ist es dem Autor dieses Dokumentation nicht gestattet konkrete Informationen über den Zielpfad der Injektion anzugeben. 
+    Das Updaten eine .jar-Datei ist innerhalb einer Java-Anwendung nur über externe Hilfsmittel möglich. 
+    Der \lstinline{CashDeskInjector.java} sucht innerhalb seines Dateiverzeichnis nach der konkreten .jar der Kassensoftware. Wird diese nicht gefunden, wird eine Warnung an den 
+    Benutzer ausgegeben und das Programm beendet. In dem anderen Fall wird ein CMD-Befehl generiert, der die Übersetzungsdatei im Klassenpfad der Kasse durch die neue Übersetzungsdatei ersetzt. 
+    Der CMD-Befehl wird über \lstinline{Runtime.getRuntime().exec(String command)} ausgeführt. Das Nassi-Shneiderman-Diagramm \ref{sec:impl:algo:inj}beschreibt den genauen Aufbau der Injection in einer allgemeingültigen Notation.
+    Die erfolgreiche Injektion wird eine Meldung an den Nutzer weitergegeben und das Programm beendet seine Routine.
   \section{Abnahme- und Einführungsphase}
   \subsection{Abnahme durch den Fachbereich}
+    Die Änderungen am Translationserivce wurden nach Fertigstellung dem zuständigen Projekteigentümer vorgelegt. Da die Anforderunen und Lösungsansetze in den Meetings 
+    regelmäßig besprochen wurden, ist der Großteil er Änderungen bereits bekannt gewesen. Dadurch konnte die Abnahme innerhalb eines kurzen Zeitraumes durchgeführt werden.
+    Der neu entwicklete Dienst Translaionupdater wurde durch den Projekteingentümer der Kassensoftware abgenommen. Dabei wurden Verbesserungsvorschläge bezüglich des Iterativen Ablaufes
+    der Routine angemerkt und für den Ausblick \ref{sec:future} notiert. 
+  \subsection{Einführung}
+    % MORGEN
   \subsection{Deployment}
-  \section{Dokumentation}
+    % MORGEN
   \section{Retroanalyse}
   \subsection{IST-SOLL-Vergleich}
-  \subsection{Ausblick}
+    Im Rahmen des Projektes wurde 2 von 3 Kernzielen erreicht. 
+  \subsection{Ausblick}\label{sec:future}
+  \subsection{Lesson learnd}
+  \newpage
   \setcounter{section}{0}
+  \setcounter{page}{1}
+  \pagenumbering{roman}
   \renewcommand{\thesection}{\MakeUppercase{\alph{section}}}
   \section{Anhang}
   \subsection{Detaillierte Zeitplanung}\label{sec:detailTime}
@@ -441,6 +530,10 @@
   \subsection{Testcases Translationservice}\label{sec:test:ts}
   \subsection{Testcases Translationservice}\label{sec:test:tu}
   \subsection{Iternationsplan}\label{sec:iterationplan}
+  \subsection{Nassi-Shneiderman-Diagramm}\label{sec:impl:algo}
+  \subsubsection{Datenbeschaffung}\label{sec:impl:algo:load}
+  \subsubsection{Cashdesk Injection}\label{sec:impl:algo:inj}
+  \subsection{Translationservice Ui}\label{sec:impl:ui}
   \section{Listings}
   \subsection{Many-To-Many Annotation}\label{sec:lst:mtmA}
     Token.php
@@ -482,4 +575,6 @@
   \end{lstlisting}
   \subsection{Beispielimplementierung einer GET-Route}\label{lst:impl:bl:GET}
   \subsection{Beispielimplementierung einer POST-Route}\label{lst:impl:bl:POST}
+  \subsection{Configurtion.ini}\label{lst:impl:ul:config}
+  \subsection{Singlton}\label{sec:lst:singleton}
 \end{document}

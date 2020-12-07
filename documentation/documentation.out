@@ -39,14 +39,14 @@
 \BOOKMARK [2][-]{subsection.6.3}{Gesch\344ftslogik}{section.6}% 39
 \BOOKMARK [3][-]{subsubsection.6.3.1}{Anpassen der Benutzeroberfl\344che}{subsection.6.3}% 40
 \BOOKMARK [2][-]{subsection.6.4}{Translationupdater}{section.6}% 41
-\BOOKMARK [3][-]{subsubsection.6.4.1}{Implementierung der Gesch\344ftslogik}{subsection.6.4}% 42
-\BOOKMARK [1][-]{section.7}{Abnahme- und Einf\374hrungsphase}{}% 43
-\BOOKMARK [2][-]{subsection.7.1}{Abnahme durch den Fachbereich}{section.7}% 44
-\BOOKMARK [2][-]{subsection.7.2}{Deployment}{section.7}% 45
-\BOOKMARK [1][-]{section.8}{Dokumentation}{}% 46
-\BOOKMARK [1][-]{section.9}{Retroanalyse}{}% 47
-\BOOKMARK [2][-]{subsection.9.1}{IST-SOLL-Vergleich}{section.9}% 48
-\BOOKMARK [2][-]{subsection.9.2}{Ausblick}{section.9}% 49
+\BOOKMARK [1][-]{section.7}{Abnahme- und Einf\374hrungsphase}{}% 42
+\BOOKMARK [2][-]{subsection.7.1}{Abnahme durch den Fachbereich}{section.7}% 43
+\BOOKMARK [2][-]{subsection.7.2}{Einf\374hrung}{section.7}% 44
+\BOOKMARK [2][-]{subsection.7.3}{Deployment}{section.7}% 45
+\BOOKMARK [1][-]{section.8}{Retroanalyse}{}% 46
+\BOOKMARK [2][-]{subsection.8.1}{IST-SOLL-Vergleich}{section.8}% 47
+\BOOKMARK [2][-]{subsection.8.2}{Ausblick}{section.8}% 48
+\BOOKMARK [2][-]{subsection.8.3}{Lesson learnd}{section.8}% 49
 \BOOKMARK [1][-]{section.1}{Anhang}{}% 50
 \BOOKMARK [2][-]{subsection.1.1}{Detaillierte Zeitplanung}{section.1}% 51
 \BOOKMARK [2][-]{subsection.1.2}{Gantt-Chart}{section.1}% 52
@@ -62,8 +62,14 @@
 \BOOKMARK [2][-]{subsection.1.8}{Testcases Translationservice}{section.1}% 62
 \BOOKMARK [2][-]{subsection.1.9}{Testcases Translationservice}{section.1}% 63
 \BOOKMARK [2][-]{subsection.1.10}{Iternationsplan}{section.1}% 64
-\BOOKMARK [1][-]{section.2}{Listings}{}% 65
-\BOOKMARK [2][-]{subsection.2.1}{Many-To-Many Annotation}{section.2}% 66
-\BOOKMARK [2][-]{subsection.2.2}{Routing}{section.2}% 67
-\BOOKMARK [2][-]{subsection.2.3}{Beispielimplementierung einer GET-Route}{section.2}% 68
-\BOOKMARK [2][-]{subsection.2.4}{Beispielimplementierung einer POST-Route}{section.2}% 69
+\BOOKMARK [2][-]{subsection.1.11}{Nassi-Shneiderman-Diagramm}{section.1}% 65
+\BOOKMARK [3][-]{subsubsection.1.11.1}{Datenbeschaffung}{subsection.1.11}% 66
+\BOOKMARK [3][-]{subsubsection.1.11.2}{Cashdesk Injection}{subsection.1.11}% 67
+\BOOKMARK [2][-]{subsection.1.12}{Translationservice Ui}{section.1}% 68
+\BOOKMARK [1][-]{section.2}{Listings}{}% 69
+\BOOKMARK [2][-]{subsection.2.1}{Many-To-Many Annotation}{section.2}% 70
+\BOOKMARK [2][-]{subsection.2.2}{Routing}{section.2}% 71
+\BOOKMARK [2][-]{subsection.2.3}{Beispielimplementierung einer GET-Route}{section.2}% 72
+\BOOKMARK [2][-]{subsection.2.4}{Beispielimplementierung einer POST-Route}{section.2}% 73
+\BOOKMARK [2][-]{subsection.2.5}{Configurtion.ini}{section.2}% 74
+\BOOKMARK [2][-]{subsection.2.6}{Singlton}{section.2}% 75

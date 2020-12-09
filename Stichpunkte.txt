@@ -140,22 +140,28 @@ To-Do's
     Entwurf: 
 
 Glossar:
-    classpath
-    Tokens
-    MySql Datenbank
+    
+    Annotations
+    Buildserver
+    Caching
+    Classpath
+    Client
+    Dashboard
+    Datenbankschema
     Deployment
     Interface
-    Multilingualität
     JSON
-    Property
-    Request
-    Dashboard
-    Updates
-    Buildservice
-    Translationservice
-    Branch
-    Merge
-    Dump           
+    Langauagelevel
+    Multilingualität
+    ORM
+    POS-System
+    Prorpertyformat
+    Propertypaare
+    Stylesheet
+    Token 
+    
+    
+               
 
     PK Übersetzung wird geändert in TokenId(PK FK) + Version(PK FK) -> Übersetzung.
 
@@ -171,4 +177,12 @@ Glossar:
         Worfür wurde die Entity Import angelegt? (Noch notwendig)
 
 Ausblick:
-    Version für Sprachen
+    Versionnierung Location
+    Konfiguration des Translationupdater
+    Versionanfrage: Gibt es Erneuerungen für die mitgeschickte Version
+    
+
+Das Projekt ist ein unternehmensinterner Auftrag zur Optimierung des Übersetzungsworkflow. Außerdem wirkt sich die neue Versionierung der Übersetzung und Tokens unterstützend auf die 
+    Nutzung unterschiedlicher Übersetzungen je Token in unterschiedlichen Versionen aus. 
+    Die Hauptentlastung kommt zu gunsten der Abteilung für Übersetzung. Neben dem benutzerfreundlichen Front-End des TranslationService, haben die Übersetzer keine 
+    Berührungspunkte mit den unstrukturierten Übersetzungsdateien.
